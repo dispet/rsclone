@@ -1,0 +1,35 @@
+extends layout
+
+block content
+  
+  header.no-select
+    div.title
+    span.openNav &#x2630;
+
+  section.todo#main
+    div.columnList
+    div.addColumn + Add Column
+    div.column_modal.modal.hidden
+      div.modal_overlay
+      div.modal_content
+    div.note_modal.modal.hidden
+      div.modal_overlay
+      div.modal_content
+
+  aside#mySidenav.sidenav
+    div.navHeader.no-select
+      div &#x2630 Menu
+      div.closebtn &times
+    div.signupbtn.menubtn 
+      i.fas.fa-user-plus
+      span  Sign Up
+    div.logoutbtn.menubtn
+      i.fas.fa-sign-out-alt
+      span  Log out
+    div.loglist
+      div.navHeader.no-select
+        div 
+          i.fas.fa-bell
+          span  Activity
+
+  script(type="module" src="/dist/main.bundle.js")

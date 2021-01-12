@@ -1,0 +1,205 @@
+@import 'common/reset', 'common/variable','components/modal', 'components/aside';
+
+body {
+    overflow-y: auto;
+}
+
+.no-select {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+header {
+    transition: margin-left 0.5s;
+    height: 60px;
+    width:100%;
+    background-color: black;
+    color: white;
+    text-align: center;
+    line-height: 60px;
+    font-weight: bold;
+    display: flex;
+}
+
+
+.title {
+    margin: auto;
+    font-size: 40px;
+}
+
+.todo {
+    display: flex;
+    width: 100%;
+    padding: 30px;
+}
+.columnList{
+  display: flex;
+  height: 100%;
+  overflow-x: auto;
+}
+.column {
+    background-color: $backgrey;
+    min-width: 285px;
+    min-height: 400px;
+    height: 100%;
+    margin-right: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: $shadow;
+}
+
+
+.columnHeader {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 20px;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.columnTitle{
+    display: flex;
+    justify-content: space-around;
+}
+
+.circle {
+    flex: none;
+    width:20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: rgb(210,210,210);
+    text-align: center;
+    font-size: 14px;
+    line-height: 18px;
+    margin-right: 10px;
+}
+
+
+.addBtn{
+    background-color: $backgrey;
+    font-size: x-large;
+    font-weight: bold;
+    margin-left: auto;
+    margin-right: 10px;
+    color:darkgrey;
+    cursor: pointer;
+}
+.closeBtn{
+    background-color:$backgrey;
+    font-size: x-large;
+    font-weight: bold;
+    color:darkgrey;
+    cursor: pointer;
+}
+
+.columnBody {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+}
+.note {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: auto;
+    flex:none;
+    margin-bottom: 10px;
+    height: 70px;
+    width: 90%;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: $shadow;
+}
+
+.noteHeader {
+    margin: 5px 10px 10px 10px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+}
+.noteTitle {
+    width: 85%;
+    padding-top: 10px;
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.noteRemoveBtn {
+    font-size: x-large;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.noteFooter {
+    margin-bottom: 15px;
+    padding-left: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+.added {
+    color: darkgrey;
+}
+
+.dropdown {
+    height: 130px;
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+}
+
+textarea {
+    resize: none;
+    height: 80%;
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    padding: 5px;
+}
+.dropdown_btns {
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    margin-top: 5px;
+}
+
+.dropdown_btns > div{
+    width: 49%;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.cancel-btn {
+    background-color: $redBtnColor;
+}
+
+.addColumn{
+    flex:none;
+    width: 240px;
+    margin-left: 5px;
+    height: 120px;
+    border-style: dashed;
+    border-width: 2px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 18px;
+    color:darkgrey;
+    line-height: 120px;
+    text-align: center;
+    cursor: pointer;
+}
