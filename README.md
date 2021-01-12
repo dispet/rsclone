@@ -1,5 +1,3 @@
-# clipboard: To-Do List to make
-
 Vanilla JS Implementation of Trello service
 
 
