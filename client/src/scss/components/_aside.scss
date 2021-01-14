@@ -1,0 +1,108 @@
+@import '../common/variable';
+
+* {
+    transition: margin-right 0.35s;
+}
+
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  background-color:white;
+  overflow-x: hidden;
+  transition: 0.25s;
+}
+
+.sidenav hr {
+  size:2px;
+}
+
+.navHeader {
+  background-color: $backgrey;
+  font-weight: bold;
+  margin-top: 0;
+  padding-left: 10px;
+  height: 30px;
+  line-height: 30px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: solid;
+  border-width: 1px;
+  border-color: darkgray;
+}
+
+.closebtn {
+  top:0;
+  font-size: 25px;
+  line-height: 25px;
+  cursor: pointer;
+}
+
+
+.menubtn {
+  height: 40px;
+  width: 360px;
+  line-height: 40px;
+  border-bottom: solid;
+  border-width: 1px;
+  border-color: darkgray;
+
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.menubtn:hover {
+  background-color: #818181;
+}
+.logoutbtn {
+}
+
+.signupbtn {
+  
+}
+
+.loglist {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.log{
+  display: flex;
+  height: 90px;
+  width: 360px;
+  padding: 20px 10px 10px 10px;
+  border-bottom: solid;
+  border-width: 1px;
+  border-color: darkgray;
+}
+
+.icon {
+  padding-top: 10px;
+}
+
+
+.logcontent{
+  margin-left:5px;
+  width: 90%;
+}
+
+.logtime {
+  margin-top: 5px;
+  font-size: 15px;
+  color:darkgrey;
+}
+
+.blueword {
+  font-weight: bold;
+  color:rgb(46,128,221);
+}
+.openNav {
+  font-size:30px;
+  margin-right: 40px;
+  cursor:pointer;
+}

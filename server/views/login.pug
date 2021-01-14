@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  
+  form(class='loginForm form', method='post')
+    div.formTitle login
+    table
+      tr
+        td
+          //- input.modalInput(type='email', placeholder='e-mail',name='email', required)
+          input.input(type='text', placeholder='email', name='email', required)
+      tr
+        td
+          input.input(type='password', placeholder='password', name='password', required)
+      tr
+        td
+          input.submit(type='submit', value='login')
+      tr
+        td
+          span Not yet a member?
+            a(href='/signup') signup
+
+  script(type="module" src="/dist/login.bundle.js")
