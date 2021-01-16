@@ -1,4 +1,4 @@
-@import 'common/reset', 'common/variable','components/modal', 'components/aside';
+@import 'common/reset', 'common/variable','components/modal', 'components/aside', 'components/labels';
 
 body {
     overflow-y: auto;
@@ -112,6 +112,7 @@ header {
     padding-top: 20px;
 }
 .note {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
