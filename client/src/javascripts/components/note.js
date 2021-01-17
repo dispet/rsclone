@@ -1,4 +1,23 @@
-import createLabel from "./label";
+import { labelColors } from "./labelColors";
+import LabelButton from "./LabelButton";
+import Label from "./label";
+
+const labelsArr = [];
+const labelsButtons = [];
+
+labelColors.forEach((label) => {
+    labelsArr.push(new Label(label.color, 'test').createLabel());
+});
+labelColors.forEach((label) => {
+    labelsButtons.push(new LabelButton(label.color).createButton());
+});
+
+const labels = labelsArr.map((label) => {
+    return label;
+});
+const buttons = labelsButtons.map((btn) => {
+    return btn;
+});
 
 export class Note {
     constructor(id, content, addedBy) {
@@ -8,8 +27,10 @@ export class Note {
     }
 
     render() {
-        return `<div class="note rt" data-id=${this.id} draggable="true">
-                    <div class="note__labels"></div>
+        return `<div class="note" data-id=${this.id} draggable="true">
+                    <div class="note__labels">
+                      ${labels.join("")}
+                    </div>
                     <div class="noteHeader">
                         <div class="noteTitle">
                            <i class="far fa-edit"></i>
@@ -42,23 +63,8 @@ export class Note {
                       <div class="sub-menu__title">
                         Labels
                       </div>
-                      <div class="labels__menu-item">
-                        <button data-hex='#61bd4f' class="label-btn" style="background: #61bd4f;"></button>
-                      </div>
-                      <div class="labels__menu-item">
-                        <button data-hex='#f2d600' class="label-btn" style="background: #f2d600;"></button>
-                      </div>
-                      <div class="labels__menu-item">
-                        <button data-hex='#ff9f1a' class="label-btn" style="background: #ff9f1a"></button>
-                      </div>
-                      <div class="labels__menu_item">
-                        <button data-hex='#eb5a46' class="label-btn" style="background: #eb5a46"></button>
-                      </div>
-                      <div class="labels__menu_item">
-                        <button data-hex='#c377e0' class="label-btn" style="background: #c377e0;"></button>
-                      </div>
-                      <div class="labels__menu_item">
-                        <button data-hex='#0079bf' class="label-btn" style="background: #0079bf;"></button>
+                      <div class="labels__menu-content">
+                        ${buttons.join("")}
                       </div>
                     </div>
 

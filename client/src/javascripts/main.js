@@ -3,7 +3,6 @@ import { Column } from "./components/column";
 import { Note } from "./components/note";
 import { Modal } from "./components/modal";
 import { dndColumnHandler, dndNoteHandler } from "./components/dragNdrop";
-import createLabel from "./components/label";
 
 const $columnList = $(".columnList");
 
@@ -29,41 +28,48 @@ const addColumnEvent = () => {
     });
 };
 
+// labels
+const addSaveLabels = () => {
+    const notes = document.querySelectorAll(".note");
+    const keys = Object.keys(localStorage);
+
+    notes.forEach((note) => {
+        const btnWrapper = note.querySelector(".labels__menu-content");
+        const labelsWrapper = note.querySelector(".note__labels");
+        keys.forEach((key) => {
+            if (String(note.dataset.id) === key) {
+                btnWrapper.innerHTML = JSON.parse(localStorage[key]).buttonsHtml;
+                labelsWrapper.innerHTML = JSON.parse(localStorage[key]).labelsHtml;
+            }
+        });
+    });
+};
+
 const addLabel = () => {
+    function addToStorage(noteId, labels, buttons) {
+        localStorage.setItem(noteId, JSON.stringify({ id: noteId, labelsHtml: labels, buttonsHtml: buttons }));
+    }
+
     function addActiveLabel() {
-        // const btns = document.querySelectorAll(".label-btn");
-        // const labels = [];
-        // btns.forEach((btn) => {
-        //     const btnColor = btn.dataset.hex;
-        //     labels.push(createLabel("test", btnColor, btnColor));
-        // });
-        // console.log(labels);
         document.addEventListener("click", (e) => {
             if (e.target.classList.contains("label-btn")) {
                 const btnColor = e.target.dataset.hex;
                 const parent = e.target.closest(".note");
                 const btns = parent.querySelectorAll(".label-btn");
                 const labelsWrapper = parent.querySelector(".note__labels");
-                console.log(btns);
+                const labelsBtnsWrapper = parent.querySelector("[data-type='label'] .labels__menu-content");
+                const labels = parent.querySelectorAll(".label");
+
+                // add active class
                 e.target.classList.toggle("active");
-                if (e.target.classList.contains("active")) {
-                    console.log("active");
-                    labelsWrapper.append(createLabel("test", btnColor, btnColor));
-                }
+                labels.forEach((label) => {
+                    if (label.dataset.color === e.target.dataset.hex) {
+                        label.classList.toggle("active");
+                    }
+                });
+                addToStorage(parent.dataset.id, labelsWrapper.innerHTML, labelsBtnsWrapper.innerHTML);
             }
         });
-        // document.addEventListener("click", (e) => {
-        //     if (e.target.classList.contains("label-btn")) {
-        //         const btnColor = e.target.dataset.hex;
-        //         const parent = e.target.closest(".note");
-        //         const labelsWrapper = parent.querySelector(".note__labels");
-        //         const labels = labelsWrapper.querySelectorAll(".label");
-
-        //         labels.forEach((label) => {
-        //             console.log(label.dataset.color);
-        //         });
-        //     }
-        // });
     }
     addActiveLabel();
 
@@ -109,6 +115,7 @@ const noteMenu = () => {
     }
     closeMenu();
 };
+// end labels
 
 const editColumnEvent = () => {
     const $columnModal = $(".column_modal");
@@ -248,36 +255,34 @@ const navEvent = () => {
         $main.style.marginright = "360px";
         updateLog();
     });
-    $closeBtn.addEventListener('click', () => {
+    $closeBtn.addEventListener("click", () => {
         $mySidenav.style.width = "0";
         $main.style.marginright = "0";
     });
 
-    $logoutbtn.addEventListener('click', () => {
-        getFetch('/api/users/auth/logout')
-            .then(() => {
-                window.location.replace('/');
-            })
-    })
-    $signupbtn.addEventListener('click', () => {
-        window.location.href = '/signup';
-    })
-}
+    $logoutbtn.addEventListener("click", () => {
+        getFetch("/api/users/auth/logout").then(() => {
+            window.location.replace("/");
+        });
+    });
+    $signupbtn.addEventListener("click", () => {
+        window.location.href = "/signup";
+    });
+};
 
 const columnDnDEvent = () => {
-    const $columns = $All('.column',$columnList);
-    $columns.forEach($el => {
+    const $columns = $All(".column", $columnList);
+    $columns.forEach(($el) => {
         dndColumnHandler($el);
-    })
-}
+    });
+};
 
 const noteDnDEvent = () => {
-    const $notes = $All('.note', $columnList);
-    $notes.forEach($el => {
+    const $notes = $All(".note", $columnList);
+    $notes.forEach(($el) => {
         dndNoteHandler($el);
-    })
-}
-
+    });
+};
 
 const setEventHandler = () => {
     addOverlayEvent();
@@ -286,52 +291,54 @@ const setEventHandler = () => {
     removeColumnEvent();
     removeNoteEvent();
     navEvent();
-    dropdownEvent('addBtn');
-    dropdownEvent('cancel-btn');
+    dropdownEvent("addBtn");
+    dropdownEvent("cancel-btn");
     watchBtn();
     columnDnDEvent();
     addNoteEvent();
     noteDnDEvent();
     editNoteEvent();
-}
+    addSaveLabels();
+    noteMenu();
+    addLabel();
+};
 const headerRender = () => {
-    getFetch('/api/users/find')
-        .then(json => {
-            const user = json.data;
-            const $header = $('.title');
-            $header.innerHTML = `${user.name}'s To-Do List`
-        })
-}
-
+    getFetch("/api/users/find").then((json) => {
+        const user = json.data;
+        const $header = $(".title");
+        $header.innerHTML = `${user.name}'s To-Do List`;
+    });
+};
 
 const render = () => {
-    getFetch('/api/users/columns')
+    getFetch("/api/users/columns")
         .then((json) => {
             json.data.forEach((c) => {
                 const column = new Column(c.id, c.name, c.user_id, c.list);
                 $columnList.innerHTML += column.render();
-            })
+            });
             headerRender();
             setEventHandler();
-        }).catch(err => {
-            console.log(err);
         })
-}
-
-
+        .catch((err) => {
+            console.log(err);
+        });
+};
 
 const init = () => {
-    getFetch('/api/users/auth/loginCheck')
+    getFetch("/api/users/auth/loginCheck")
         .then((json) => {
-            if (!json.data) {    //
-                window.location.replace('/login');
+            if (!json.data) {
+                //
+                window.location.replace("/login");
             } else {
                 render();
             }
         })
-        .catch((err) => { //
-            window.location.replace('/login');
-        })
-}
+        .catch((err) => {
+            //
+            window.location.replace("/login");
+        });
+};
 
 init();
