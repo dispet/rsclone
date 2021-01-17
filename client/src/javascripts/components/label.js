@@ -1,8 +1,10 @@
-function createLabel(text, title){
-  const labelTitle = title || '';
-  const label = document.createElement('span');
-  label.className = 'label';
-  label.setAttribute('title', labelTitle);
-  return `<span class="label" title="${title}">${text}</span>`
+export default function createLabel(title, color, data) {
+    const labelTitle = title || "";
+    const labelColor = color || "#000";
+    const label = document.createElement("span");
+    label.className = "label active";
+    label.setAttribute("title", labelTitle);
+    label.style.background = labelColor;
+    label.dataset.color = data;
+    return label;
 }
-export default createLabel;

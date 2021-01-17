@@ -3,6 +3,7 @@ import { Column } from "./components/column";
 import { Note } from "./components/note";
 import { Modal } from "./components/modal";
 import { dndColumnHandler, dndNoteHandler } from "./components/dragNdrop";
+import createLabel from "./components/label";
 
 const $columnList = $(".columnList");
 
@@ -26,6 +27,48 @@ const addColumnEvent = () => {
         modal.addEventHandler($column_modal);
         $column_modal.classList.toggle("hidden");
     });
+};
+
+const addLabel = () => {
+    function addActiveLabel() {
+        // const btns = document.querySelectorAll(".label-btn");
+        // const labels = [];
+        // btns.forEach((btn) => {
+        //     const btnColor = btn.dataset.hex;
+        //     labels.push(createLabel("test", btnColor, btnColor));
+        // });
+        // console.log(labels);
+        document.addEventListener("click", (e) => {
+            if (e.target.classList.contains("label-btn")) {
+                const btnColor = e.target.dataset.hex;
+                const parent = e.target.closest(".note");
+                const btns = parent.querySelectorAll(".label-btn");
+                const labelsWrapper = parent.querySelector(".note__labels");
+                console.log(btns);
+                e.target.classList.toggle("active");
+                if (e.target.classList.contains("active")) {
+                    console.log("active");
+                    labelsWrapper.append(createLabel("test", btnColor, btnColor));
+                }
+            }
+        });
+        // document.addEventListener("click", (e) => {
+        //     if (e.target.classList.contains("label-btn")) {
+        //         const btnColor = e.target.dataset.hex;
+        //         const parent = e.target.closest(".note");
+        //         const labelsWrapper = parent.querySelector(".note__labels");
+        //         const labels = labelsWrapper.querySelectorAll(".label");
+
+        //         labels.forEach((label) => {
+        //             console.log(label.dataset.color);
+        //         });
+        //     }
+        // });
+    }
+    addActiveLabel();
+
+    function addLabelNote() {}
+    addLabelNote();
 };
 
 const noteMenu = () => {
@@ -248,6 +291,7 @@ const setEventHandler = () => {
     addNoteEvent();
     noteDnDEvent();
     editNoteEvent();
+    addLabel();
     noteMenu();
 };
 const headerRender = () => {

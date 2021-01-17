@@ -55,6 +55,17 @@
     }
 }
 
+.label {
+    display: none;
+    vertical-align: top;
+    width: 30px;
+    height: 5px;
+    border-radius: 3px;
+    &.active {
+        display: inline-block;
+    }
+}
+
 .sub-menu {
     transform: scale(0);
     position: absolute;

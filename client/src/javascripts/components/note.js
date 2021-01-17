@@ -9,8 +9,8 @@ export class Note {
 
     render() {
         return `<div class="note rt" data-id=${this.id} draggable="true">
+                    <div class="note__labels"></div>
                     <div class="noteHeader">
-                      <div class="note__labels"></div>
                         <div class="noteTitle">
                            <i class="far fa-edit"></i>
                            <span class="noteName">${this.content}</span>
