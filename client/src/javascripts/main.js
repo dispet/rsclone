@@ -248,34 +248,36 @@ const navEvent = () => {
         $main.style.marginright = "360px";
         updateLog();
     });
-    $closeBtn.addEventListener("click", () => {
+    $closeBtn.addEventListener('click', () => {
         $mySidenav.style.width = "0";
         $main.style.marginright = "0";
     });
 
-    $logoutbtn.addEventListener("click", () => {
-        getFetch("/api/users/auth/logout").then(() => {
-            window.location.replace("/");
-        });
-    });
-    $signupbtn.addEventListener("click", () => {
-        window.location.href = "/signup";
-    });
-};
+    $logoutbtn.addEventListener('click', () => {
+        getFetch('/api/users/auth/logout')
+            .then(() => {
+                window.location.replace('/');
+            })
+    })
+    $signupbtn.addEventListener('click', () => {
+        window.location.href = '/signup';
+    })
+}
 
 const columnDnDEvent = () => {
-    const $columns = $All(".column", $columnList);
-    $columns.forEach(($el) => {
+    const $columns = $All('.column',$columnList);
+    $columns.forEach($el => {
         dndColumnHandler($el);
-    });
-};
+    })
+}
 
 const noteDnDEvent = () => {
-    const $notes = $All(".note", $columnList);
-    $notes.forEach(($el) => {
+    const $notes = $All('.note', $columnList);
+    $notes.forEach($el => {
         dndNoteHandler($el);
-    });
-};
+    })
+}
+
 
 const setEventHandler = () => {
     addOverlayEvent();
@@ -284,53 +286,52 @@ const setEventHandler = () => {
     removeColumnEvent();
     removeNoteEvent();
     navEvent();
-    dropdownEvent("addBtn");
-    dropdownEvent("cancel-btn");
+    dropdownEvent('addBtn');
+    dropdownEvent('cancel-btn');
     watchBtn();
     columnDnDEvent();
     addNoteEvent();
     noteDnDEvent();
     editNoteEvent();
-    addLabel();
-    noteMenu();
-};
+}
 const headerRender = () => {
-    getFetch("/api/users/find").then((json) => {
-        const user = json.data;
-        const $header = $(".title");
-        $header.innerHTML = `${user.name}'s To-Do List`;
-    });
-};
+    getFetch('/api/users/find')
+        .then(json => {
+            const user = json.data;
+            const $header = $('.title');
+            $header.innerHTML = `${user.name}'s To-Do List`
+        })
+}
+
 
 const render = () => {
-    getFetch("/api/users/columns")
+    getFetch('/api/users/columns')
         .then((json) => {
             json.data.forEach((c) => {
                 const column = new Column(c.id, c.name, c.user_id, c.list);
                 $columnList.innerHTML += column.render();
-            });
+            })
             headerRender();
             setEventHandler();
-        })
-        .catch((err) => {
+        }).catch(err => {
             console.log(err);
-        });
-};
+        })
+}
+
+
 
 const init = () => {
-    getFetch("/api/users/auth/loginCheck")
+    getFetch('/api/users/auth/loginCheck')
         .then((json) => {
-            if (!json.data) {
-                //
-                window.location.replace("/login");
+            if (!json.data) {    //
+                window.location.replace('/login');
             } else {
                 render();
             }
         })
-        .catch((err) => {
-            //
-            window.location.replace("/login");
-        });
-};
+        .catch((err) => { //
+            window.location.replace('/login');
+        })
+}
 
 init();
