@@ -53,6 +53,9 @@ export class Note {
                             <button data-action='label' class="button note__btn">Edit labels</button>
                           </div>
                           <div class="note__btns_item">
+                            <button data-action='note-color' class="button note__btn">Note color</button>
+                          </div>
+                          <div class="note__btns_item">
                             <button data-action='members' class="button note__btn">Change members</button>
                           </div>
                         </div>
@@ -65,6 +68,17 @@ export class Note {
                       </div>
                       <div class="labels__menu-content">
                         ${buttons.join("")}
+                      </div>
+                    </div>
+
+                    <div data-type="note-color" class="sub-menu labels-menu">
+                     <span class="close labels__menu-close">&times;</span>
+                      <div class="sub-menu__title">
+                        Note color
+                      </div>
+                      <div class="labels__menu-item">
+                        <input type="color" id="note-color" name="note-color"
+                      value="#e66465">
                       </div>
                     </div>
 
