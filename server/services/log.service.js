@@ -8,7 +8,6 @@ class LogService {
     }
 
     async read(userId) {
-      // eslint-disable-next-line no-useless-catch
         try {
             return await this.logModel.SELECT_USERLOG(userId);
         } catch (err) {
@@ -17,7 +16,7 @@ class LogService {
     }
 
     async addNote(data) {
-      // eslint-disable-next-line no-useless-catch
+
         try {
             await this.logModel.ADD_NOTE(data);
         } catch (err) {
@@ -25,8 +24,16 @@ class LogService {
         }
     }
 
+    async addMemberNote(data) {
+        try {
+            await this.logModel.ADD_MEMBER_NOTE(data);
+        } catch (err) {
+            throw err;
+        }
+    }
+
     async updateNote(data) {
-      // eslint-disable-next-line no-useless-catch
+
         try {
             await this.logModel.UPDATE_NOTE(data);
         } catch (err) {
@@ -35,7 +42,6 @@ class LogService {
     }
 
     async moveNote(data) {
-      // eslint-disable-next-line no-useless-catch
         try {
             await this.logModel.MOVE_NOTE(data);
         } catch (err) {
@@ -44,7 +50,7 @@ class LogService {
     }
 
     async removeNote(data) {
-      // eslint-disable-next-line no-useless-catch
+
         try {
             await this.logModel.REMOVE_NOTE(data);
         } catch (err) {
@@ -53,7 +59,6 @@ class LogService {
     }
 
     async addColumn(data) {
-      // eslint-disable-next-line no-useless-catch
         try {
             await this.logModel.ADD_COLUMN(data);
         } catch (err) {
@@ -62,7 +67,7 @@ class LogService {
     }
 
     async updateColumn(data) {
-      // eslint-disable-next-line no-useless-catch
+
         try {
             await this.logModel.UPDATE_COLUMN(data);
         } catch (err) {
@@ -71,7 +76,6 @@ class LogService {
     }
 
     async removeColumn(data) {
-      // eslint-disable-next-line no-useless-catch
         try {
             return await this.logModel.REMOVE_COLUMN(data);
         } catch (err) {

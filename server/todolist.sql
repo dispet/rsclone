@@ -4,7 +4,8 @@ CREATE TABLE Users
     email    VARCHAR(64) UNIQUE NOT NULL,
     password VARCHAR(64)        NOT NULL,
     name     VARCHAR(64) UNIQUE NOT NULL,
-    phone    VARCHAR(20)        NOT NULL
+    phone    VARCHAR(20)        NOT NULL,
+    addedBy  INT                NULL
 );
 
 CREATE TABLE Columns
@@ -23,6 +24,7 @@ CREATE TABLE Note
     content    varchar(300) NOT NULL,
     next_note  INT DEFAULT NULL,
     addedBy    INT          NOT NULL,
+    members    varchar(300) NULL,
     FOREIGN KEY (columns_id) REFERENCES Columns (id) ON DELETE cascade,
     FOREIGN KEY (addedBy) REFERENCES Users (id)
 );

@@ -4,7 +4,6 @@ const DBconfig = require('../config/DBconfig');
 const connection = mysql.createConnection(DBconfig);
 
 class UserModel {
-  // eslint-disable-next-line no-useless-constructor,no-empty-function
     constructor(){}
 
     SELECT(userId) {
@@ -31,16 +30,28 @@ class UserModel {
         })
     }
 
+    SELECT_BY_ADDEDBY(addedBy) {
+        return new Promise((resolve, reject) => {
+            const query = "SELECT * FROM Users where addedBy = ? or id = ?";
+            connection.query(query, [addedBy,addedBy], (err, rows, fields) => {
+                if (err) {
+                    reject(err);
+                }
+                resolve(rows);
+            })
+        })
+    }
+
     INSERT(usersDTO) {
         return new Promise((resolve, reject) => {
-            const query = "INSERT INTO Users(email, password, name, phone) VALUES(?,?,?,?)";
-            const params = [usersDTO.email, usersDTO.password, usersDTO.name, usersDTO.phone];
+            const query = "INSERT INTO Users(email, password, name, phone, addedBy) VALUES(?,?,?,?,?)";
+            const params = [usersDTO.email, usersDTO.password, usersDTO.name, usersDTO.phone, usersDTO.addedBy];
             connection.execute(query, params, (err, rows, fields) => {
                 if (err) {
                     reject(err);
                 }
-                const insertId = rows.insertId;
-                resolve(insertId);
+                // const insertId = rows.insertId;
+              resolve(rows);
             })
         })
     }

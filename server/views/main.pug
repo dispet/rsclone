@@ -1,9 +1,13 @@
 extends layout
 
 block content
-  
+
   header.no-select
     div.title
+    div.members
+      div.user-info-name#name Members:
+      div.user-info
+        div.user-info-avatar(title="avatar")#avatar
     span.openNav &#x2630;
 
   section.todo#main
@@ -20,16 +24,25 @@ block content
     div.navHeader.no-select
       div &#x2630 Menu
       div.closebtn &times
-    div.signupbtn.menubtn 
+    div.signupbtn.menubtn
       i.fas.fa-user-plus
-      span  Sign Up
+      span(title="Invite to board") Add Member
     div.logoutbtn.menubtn
       i.fas.fa-sign-out-alt
       span  Log out
     div.loglist
       div.navHeader.no-select
-        div 
+        div
           i.fas.fa-bell
           span  Activity
+
+  footer.footer
+    p
+      span 2021 © rsclone
+      a(href="https://github.com/dispet") dispet
+      a(href="https://github.com/AlexeyFL") AlexeyFL
+      a(href="https://github.com/dispet") unclekoin
+      a(href="https://rs.school/js")
+        img(src="dist/src/assets/img/rs_school_js.svg" width="50" height="50" alt="")
 
   script(type="module" src="/dist/main.bundle.js")

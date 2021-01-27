@@ -1,14 +1,20 @@
 const resObject = require('../resObject')
 const LogService = require('../../services/log.service');
+const UsersService = require('../../services/users.service');
 
 class LogController {
     constructor() {
         this.lService = new LogService();
+        this.uService = new UsersService();
 
         this.getUserLogs = async (req, res, next) => {
             try {
-                const userId = req.session.userInfo.id;
-                const data = await this.lService.read(userId);
+              const dataOne = await this.uService.findOne(req.session.userInfo.id);
+              const userId = dataOne.addedBy || req.session.userInfo.id;
+              const dataAddedBy = await this.uService.findAllAddedBy(userId);
+              const usersId = [];
+              dataAddedBy.forEach(el => usersId.push(el.id))
+              const data = await this.lService.read(usersId);
                 const response = resObject(200, true, 'Log inquiry success', data);
                 res.send(response);
             } catch (err) {
@@ -42,6 +48,19 @@ class LogController {
             }
         }
 
+        this.addMemberNoteLog = async (req, res, next) => {
+            const logData = req.logData;
+            logData.user_id = req.session.userInfo.id;
+            try {
+                await this.lService.addMemberNote(logData);
+            } catch (err) {
+                console.error(err);
+            } finally {
+                const response = resObject(200, true, 'Member addition to note success', logData);
+                res.send(response);
+            }
+        }
+
         this.moveNoteLog = async (req, res, next) => {
             const logData = req.logData;
             if(!logData)
@@ -59,6 +78,7 @@ class LogController {
         }
 
         this.removeNoteLog = async (req, res, next) => {
+            console.log('this.removeNoteLog')
             const logData = req.logData;
             logData.user_id = req.session.userInfo.id;
             try {

@@ -45,6 +45,21 @@ class NoteController {
             }
         }
 
+        this.addMemberNote = async (req, res, next) => {
+            try {
+                const noteDTO = {
+                    id: req.body.id,
+                    name: req.body.name,
+                    member: req.body.member
+                }
+                req.logData = await this.nService.addMember(noteDTO);
+                next();
+            } catch (err) {
+                const response = resObject(400, false, (err.sqlMessage)? err.sqlMessage : err.message, null);
+                res.send(response);
+            }
+        }
+
         this.moveNote = async (req, res, next) => {
             try {
                 const noteDTO = {

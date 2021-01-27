@@ -3,13 +3,12 @@ const DBconfig = require('../config/DBconfig');
 
 const connection = mysql.createConnection(DBconfig);
 class ColumnsModel {
-  // eslint-disable-next-line no-useless-constructor,no-empty-function
     constructor() { }
 
     SELECT_ALL(userId) {
         return new Promise((resolve, reject) => {
-            const query = "SELECT * FROM Columns where user_id = ?";
-            connection.query(query, userId, (err, rows, fields) => {
+            const query = "SELECT * FROM Columns where user_id in (?)";
+            connection.query(query, [userId], (err, rows, fields) => {
                 if (err) {
                     reject(err);
                 }
@@ -49,7 +48,6 @@ class ColumnsModel {
         return new Promise((resolve, reject) => {
             const query = "UPDATE Columns SET name=? WHERE id = ?";
             const params = [columnsDTO.name, columnsDTO.id];
-            console.log(params);
             connection.execute(query, params, (err, rows, fields) => {
                 if (err) {
                     reject(err);

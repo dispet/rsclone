@@ -8,7 +8,6 @@ class NoteService {
     }
 
     async findOne(noteId) {
-      // eslint-disable-next-line no-useless-catch
         try {
             return await this.noteModel.SELECT(noteId);
         } catch (err) {
@@ -17,7 +16,6 @@ class NoteService {
     }
 
     async create(noteDTO) {
-      // eslint-disable-next-line no-useless-catch
         try {
             const columns = await this.columnsModel.SELECT(noteDTO.columns_id);
             const insertId = await this.noteModel.INSERT(noteDTO);
@@ -30,9 +28,7 @@ class NoteService {
                 last.next_note = insertId;
                 await this.noteModel.UPDATE_NODE(last);
             }
-          // eslint-disable-next-line no-param-reassign
             noteDTO.id = insertId;
-          // eslint-disable-next-line no-param-reassign
             noteDTO.to_column = columns.name;
             return noteDTO;
         } catch (err) {
@@ -41,11 +37,9 @@ class NoteService {
     }
 
     async update(noteDTO) {
-      // eslint-disable-next-line no-useless-catch
         try {
             const origin = await this.noteModel.SELECT(noteDTO.id);
             await this.noteModel.UPDATE(noteDTO);
-          // eslint-disable-next-line no-param-reassign
             noteDTO.subject = `${ origin.content } -> ${ noteDTO.content }`;
             return noteDTO;
         } catch (err) {
@@ -53,9 +47,20 @@ class NoteService {
         }
     }
 
-    // columns_id: I moved columns of id
+    async addMember(noteDTO) {
+        try {
+            const origin = await this.noteModel.SELECT(noteDTO.id);
+            if (origin.members) origin.members += ',';
+            noteDTO.member = origin.members + noteDTO.member;
+            await this.noteModel.ADDMEMBER(noteDTO);
+            noteDTO.subject = `Member ${noteDTO.name} to ${ origin.content }`;
+            return noteDTO;
+        } catch (err) {
+            throw err;
+        }
+    }
+
     async move(noteDTO) {
-      // eslint-disable-next-line no-useless-catch
         try {
             const currColumns = await this.columnsModel.SELECT(noteDTO.columns_id);
             const origin = await this.noteModel.SELECT(noteDTO.id);
@@ -64,10 +69,8 @@ class NoteService {
             if (currColumns.id === originColumns.id && noteDTO.next_note === origin.next_note)
                 return null;
 
-            // 1. next_note When there is
             if(noteDTO.next_note){
                 const next = await this.noteModel.SELECT(noteDTO.next_note);
-                // note The location of top Check whether
                 if (currColumns.head === next.id) {
                     currColumns.head = noteDTO.id;
                     await this.updatePrev(origin, originColumns)
@@ -79,12 +82,9 @@ class NoteService {
                     await this.noteModel.UPDATE_NODE(nextPrev);
                 }
             }
-            // 2. next_note When there is no
             else {
-                // Now columnsThe last of  note Bring
                 const last = await this.noteModel.SELECT_LAST(currColumns.id);
 
-                // last Is present bottom, Without top
                 if (last) {
                     last.next_note = noteDTO.id;
                     await this.updatePrev(origin, originColumns)
@@ -96,14 +96,10 @@ class NoteService {
                 }
             }
 
-            // Fix mine
             await this.noteModel.UPDATE_NODE(noteDTO);
 
-          // eslint-disable-next-line no-param-reassign
             noteDTO.subject = origin.content;
-          // eslint-disable-next-line no-param-reassign
             noteDTO.to_column = currColumns.name;
-          // eslint-disable-next-line no-param-reassign
             noteDTO.from_column = originColumns.name;
             return noteDTO;
         } catch (err) {
@@ -117,19 +113,16 @@ class NoteService {
             prev.next_note = origin.next_note;
             await this.noteModel.UPDATE_NODE(prev);
         } else {
-          // eslint-disable-next-line no-param-reassign
             originColumns.head = origin.next_note;
             await this.columnsModel.UPDATE(originColumns);
         }
     }
 
     async delete(noteId) {
-      // eslint-disable-next-line no-useless-catch
         try {
             const note = await this.noteModel.SELECT(noteId);
             const columns = await this.columnsModel.SELECT(note.columns_id);
-
-            if (columns.head === noteId) {
+            if (columns.head === +noteId) {
                 columns.head = note.next_note;
                 await this.columnsModel.UPDATE(columns);
             } else {

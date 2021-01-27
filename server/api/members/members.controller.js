@@ -6,7 +6,7 @@ class MembersController {
         this.mService = new MembersService();
         this.findAllMembers = async (req, res, next) => {
             try {
-                const data = await this.mService.findAll(req.params.userId);
+                const data = await this.mService.findAll();
                 const response = resObject(200, true, 'Member inquiry success', data);
                 res.send(response);
             } catch (err) {
@@ -31,7 +31,8 @@ class MembersController {
             try {
                 const membersDTO = {
                     email : req.body.email,
-                    name: req.body.name
+                    name: req.body.name,
+                    user_id: req.body.user_id
                 }
                 const data = await this.mService.create(membersDTO);
                 const response = resObject(201, true, 'Successful member addition', data);

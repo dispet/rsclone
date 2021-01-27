@@ -4,17 +4,15 @@
  * Module dependencies.
  */
 
-// eslint-disable-next-line import/order
 const app = require('../app');
 const debug = require('debug')('be:server');
-// eslint-disable-next-line import/no-extraneous-dependencies
+
 const http = require('http');
 
 /**
  * Get port from environment and store in Express.
  */
 
-// eslint-disable-next-line no-use-before-define
 const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
@@ -29,9 +27,7 @@ const server = http.createServer(app);
  */
 
 server.listen(port);
-// eslint-disable-next-line no-use-before-define
 server.on('error', onError);
-// eslint-disable-next-line no-use-before-define
 server.on('listening', onListening);
 
 /**
@@ -39,10 +35,8 @@ server.on('listening', onListening);
  */
 
 function normalizePort(val) {
-  // eslint-disable-next-line no-shadow
   const port = parseInt(val, 10);
 
-  // eslint-disable-next-line no-restricted-globals
   if (isNaN(port)) {
     // named pipe
     return val;

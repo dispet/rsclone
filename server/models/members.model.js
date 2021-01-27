@@ -4,14 +4,13 @@ const DBconfig = require('../config/DBconfig');
 const connection = mysql.createConnection(DBconfig);
 
 class MembersModel {
-  // eslint-disable-next-line no-useless-constructor,no-empty-function
   constructor() {
   }
 
-  SELECT_ALL(userId) {
+  SELECT_ALL() {
     return new Promise((resolve, reject) => {
-      const query = "SELECT * FROM Members where id = ?";
-      connection.query(query, userId, (err, rows, fields) => {
+      const query = "SELECT * FROM Members ";
+      connection.query(query,  (err, rows, fields) => {
         if (err) {
           reject(err);
         }
@@ -22,7 +21,7 @@ class MembersModel {
 
   SELECT(memberId) {
     return new Promise((resolve, reject) => {
-      const query = "SELECT * FROM Members where id = ?";
+      const query = "SELECT * FROM Members where user_id = ?";
       connection.query(query, memberId, (err, rows, fields) => {
         if (err) {
           reject(err);
@@ -52,8 +51,8 @@ class MembersModel {
         if (err) {
           reject(err);
         }
-        const insertId = rows.insertId;
-        resolve(insertId);
+        // const insertId = rows.insertId;
+        resolve(rows);
       })
     })
   }

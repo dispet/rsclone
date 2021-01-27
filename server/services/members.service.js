@@ -6,7 +6,6 @@ class MembersService {
   }
 
   async findAll(userId) {
-    // eslint-disable-next-line no-useless-catch
     try {
       return await this.membersModel.SELECT_ALL(userId);
     } catch (err) {
@@ -15,7 +14,7 @@ class MembersService {
   }
 
   async findOne(memberId) {
-    // eslint-disable-next-line no-useless-catch
+
     try {
       return await this.membersModel.SELECT(memberId);
     } catch (err) {
@@ -24,7 +23,6 @@ class MembersService {
   }
 
   async create(membersDTO) {
-    // eslint-disable-next-line no-useless-catch
     try {
       return await this.membersModel.INSERT(membersDTO);
     } catch (err) {

@@ -32,14 +32,13 @@ export class Column {
 
         const $columnBody = $('.columnBody', $columnDiv);
         this.list.forEach((n) => {
-            const note = new Note(n.id, n.content, n.addedBy);
+            const note = new Note(n.id, n.content, n.addedBy, n.members);
             this.addNote($columnBody, note);
         })
         return $columnDiv.outerHTML;
     }
 
     addNote($columnBody, note) {
-      // eslint-disable-next-line no-param-reassign
         $columnBody.innerHTML += note.render();
     }
 

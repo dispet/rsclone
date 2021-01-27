@@ -1,6 +1,6 @@
 const createError = require('http-errors');
 const express = require('express');
-// eslint-disable-next-line import/no-extraneous-dependencies
+
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
@@ -10,9 +10,8 @@ const Router = require('./api/index')
 
 const app = express();
 
-// eslint-disable-next-line import/order
 const session = require('express-session');
-// eslint-disable-next-line import/order
+
 const FileStore = require('session-file-store')(session);
 
 app.use(session({

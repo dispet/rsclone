@@ -5,9 +5,9 @@ const columnsController = require('./columns.controller')
 const logController = require('../log/log.controller')
 
 router.get('/:columnsId', columnsController.findColumns);
-router.post('/', columnsController.insertColumns, logController.insertColumnLog); // Log
+router.post('/', columnsController.insertColumns, logController.insertColumnLog);
 router.put('/head', columnsController.updateHead);
-router.put('/rename', columnsController.updateName, logController.editColumnLog); // Log
-router.delete('/:columnsId', columnsController.deleteColumns, logController.removeColumnLog); // Log
+router.put('/rename', columnsController.updateName, logController.editColumnLog);
+router.delete('/:columnsId', columnsController.deleteColumns, logController.removeColumnLog);
 
 module.exports = router;

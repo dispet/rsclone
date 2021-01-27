@@ -13,11 +13,11 @@ router.get('/', (req, res, next) => {
   res.render('index')
 })
 router.use('/api/users', users);
-
+router.use('/api/members', members);
 router.use(auth);
 router.use('/api/columns', columns);
 router.use('/api/note', note);
 router.use('/api/log', log);
 
-router.use('/api/members', members);
+
 module.exports = router;

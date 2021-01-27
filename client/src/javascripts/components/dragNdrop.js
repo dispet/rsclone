@@ -3,7 +3,6 @@ import { $,putFetch, updateLog, findNote} from '../utils'
 
 const onDragleave = (event) => {
     if (event.target.closest('.note')) {
-      // eslint-disable-next-line no-param-reassign
         event.target.closest('.note').style.backgroundColor = "white";
     }
 }
@@ -52,8 +51,8 @@ const onDrop = (event) => {
                 $nextNote.style.backgroundColor = "white";
                 $('.columnBody', $origin).removeChild($note);
                 $('.columnBody', $column).insertBefore($note, $nextNote);
-                $('.circle', $origin).innerHTML -=1 ;
-                $('.circle', $column).innerHTML +=1 ;
+                $('.circle', $origin).innerHTML--;
+                $('.circle', $column).innerHTML++;
             })
         }
     }else{
@@ -67,8 +66,8 @@ const onDrop = (event) => {
                 $('.columnBody', $origin).removeChild($note);
                 $('.columnBody', $column).appendChild($note);
 
-                $('.circle', $origin).innerHTML -=1 ;
-                $('.circle',$column).innerHTML +=1 ;
+                $('.circle', $origin).innerHTML--;
+                $('.circle',$column).innerHTML++;
             })
     }
     updateLog();
