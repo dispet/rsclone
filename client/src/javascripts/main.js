@@ -95,6 +95,114 @@ const removeColumnEvent = () => {
   })
 }
 
+
+// labels
+const addSaveLabels = () => {
+  const notes = document.querySelectorAll(".note");
+  const keys = Object.keys(localStorage);
+
+  notes.forEach((note) => {
+      const btnWrapper = note.querySelector(".labels__menu-content");
+      const labelsWrapper = note.querySelector(".note__labels");
+      keys.forEach((key) => {
+          if (String(note.dataset.id) === key) {
+              btnWrapper.innerHTML = JSON.parse(localStorage[key]).buttonsHtml;
+              labelsWrapper.innerHTML = JSON.parse(localStorage[key]).labelsHtml;
+          }
+      });
+  });
+};
+
+const addLabel = () => {
+  function addToStorage(noteId, labels, buttons, noteBg, noteColor) {
+      localStorage.setItem(noteId, JSON.stringify({ id: noteId, labelsHtml: labels, buttonsHtml: buttons, noteBackground: noteBg || '', noteColor: noteColor || '' }));
+  }
+
+  function saveToDatabase() {
+      document.addEventListener("click", (e) => {
+          if (e.target.classList.contains("button_save")) {
+              const parentNote = e.target.closest(".note");
+              const menu = e.target.closest(".note__menu");
+              const noteId = parentNote.dataset.id;
+              menu.classList.remove("active");
+              const noteBody = parentNote.innerHTML;
+              const $column = e.target.closest(".column");
+              const payload = {
+                  id: noteId,
+                  content: "test 343434"
+              };
+          }
+      });
+  }
+  saveToDatabase();
+
+  function addActiveLabel() {
+      document.addEventListener("click", (e) => {
+          if (e.target.classList.contains("label-btn")) {
+              const btnColor = e.target.dataset.hex;
+              const parent = e.target.closest(".note");
+              const btns = parent.querySelectorAll(".label-btn");
+              const labelsWrapper = parent.querySelector(".note__labels");
+              const labelsBtnsWrapper = parent.querySelector("[data-type='label'] .labels__menu-content");
+              const labels = parent.querySelectorAll(".label");
+
+              // add active class
+              e.target.classList.toggle("active");
+              labels.forEach((label) => {
+                  if (label.dataset.color === e.target.dataset.hex) {
+                      label.classList.toggle("active");
+                  }
+              });
+              addToStorage(parent.dataset.id, labelsWrapper.innerHTML, labelsBtnsWrapper.innerHTML);
+          }
+      });
+  }
+  addActiveLabel();
+
+  function addLabelNote() {}
+  addLabelNote();
+};
+
+const noteMenu = () => {
+  function openMenu() {
+      document.addEventListener("click", (e) => {
+          if (e.target.closest(".note__icon")) {
+              const parent = e.target.closest(".note");
+              const menu = parent.querySelector(".note__menu");
+              menu.classList.toggle("active");
+          }
+      });
+  }
+  openMenu();
+
+  function openSubMenu() {
+      document.addEventListener("click", (e) => {
+          if (e.target.classList.contains("button")) {
+              const btn = e.target;
+              const parent = e.target.closest(".note");
+              const menus = parent.querySelectorAll(".sub-menu");
+
+              menus.forEach((menu) => {
+                  if (menu.dataset.type === btn.dataset.action) {
+                      menu.classList.toggle("active");
+                  }
+              });
+          }
+      });
+  }
+  openSubMenu();
+
+  function closeMenu() {
+      document.addEventListener("click", (e) => {
+          if (e.target.classList.contains("close")) {
+              e.target.parentElement.classList.remove("active");
+          }
+      });
+  }
+  closeMenu();
+};
+// end labels
+
 const dropdownEvent = (node) => {
   $columnList.addEventListener('click', (event) => {
     if (event.target.className === node) {
@@ -256,6 +364,9 @@ const setEventHandler = () => {
   addNoteEvent();
   noteDnDEvent();
   editNoteEvent();
+  addSaveLabels();
+  addLabel();
+  noteMenu();
 }
 
 const headerRender = () => {
