@@ -6,7 +6,7 @@ const labelsArr = [];
 const labelsButtons = [];
 
 labelColors.forEach((label) => {
-    labelsArr.push(new Label(label.color, 'test').createLabel());
+    labelsArr.push(new Label(label.color, "test").createLabel());
 });
 labelColors.forEach((label) => {
     labelsButtons.push(new LabelButton(label.color).createButton());
@@ -24,12 +24,13 @@ export class Note {
         this.id = id;
         this.content = content;
         this.addedBy = addedBy;
+        this.labels = labels.join("");
     }
 
     render() {
         return `<div class="note" data-id=${this.id} draggable="true">
                     <div class="note__labels">
-                      ${labels.join("")}
+                      ${this.labels}
                     </div>
                     <div class="noteHeader">
                         <div class="noteTitle">
@@ -77,6 +78,10 @@ export class Note {
                         Note color
                       </div>
                       <div class="labels__menu-item">
+                      <label for="note-background">Background</label>
+                        <input type="color" id="note-background" name="note-background"
+                      value="#e66465">
+                      <label for="note-background">color</label>
                         <input type="color" id="note-color" name="note-color"
                       value="#e66465">
                       </div>

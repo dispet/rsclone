@@ -1,4 +1,4 @@
-import { $, $All, getFetch, postFetch, deleteFetch, updateLog, watchBtn } from "./utils";
+import { $, $All, getFetch, postFetch, deleteFetch, updateLog, watchBtn, findNote, putFetch } from "./utils";
 import { Column } from "./components/column";
 import { Note } from "./components/note";
 import { Modal } from "./components/modal";
@@ -46,9 +46,39 @@ const addSaveLabels = () => {
 };
 
 const addLabel = () => {
-    function addToStorage(noteId, labels, buttons) {
-        localStorage.setItem(noteId, JSON.stringify({ id: noteId, labelsHtml: labels, buttonsHtml: buttons }));
+    function addToStorage(noteId, labels, buttons, noteBg, noteColor) {
+        localStorage.setItem(noteId, JSON.stringify({ id: noteId, labelsHtml: labels, buttonsHtml: buttons, noteBackground: noteBg || '', noteColor: noteColor || '' }));
     }
+
+    function saveToDatabase() {
+        document.addEventListener("click", (e) => {
+            if (e.target.classList.contains("button_save")) {
+                const parentNote = e.target.closest(".note");
+                const menu = e.target.closest(".note__menu");
+                const noteId = parentNote.dataset.id;
+                menu.classList.remove("active");
+                const noteBody = parentNote.innerHTML;
+                const $column = e.target.closest(".column");
+                const payload = {
+                    id: noteId,
+                    content: "test 343434"
+                };
+
+                // console.log(
+                //     "put",
+                //     putFetch("/api/note/update", payload)
+                //         .then((json) => {
+                //             const $note = findNote(noteId);
+                //             $note.innerHTML = payload.content;
+                //         })
+                //         .then(() => {
+                //             updateLog();
+                //         })
+                // );
+            }
+        });
+    }
+    saveToDatabase();
 
     function addActiveLabel() {
         document.addEventListener("click", (e) => {

@@ -1,7 +1,7 @@
 module.exports = {
-    host: 'sql7.freemysqlhosting.net',
-    // port: '3306',
-    user: 'sql7386563',
-    password: 'wXfhDKXEvB',
-    database: 'sql7386563'
+  host: 'SG-todo-3766-mysql-master.servers.mongodirector.com',
+  // port: '3306',
+  user: 'sgroot',
+  password: 'DDocZb2Ztwj,VT4Q',
+  database: 'todolist'
 };
