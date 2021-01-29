@@ -10,6 +10,8 @@ const avatar = require('avatar-image');
 const $columnList = $('.columnList');
 let userId;
 export let usersAdded;
+let labelOn = false;
+let avatarOn = false;
 
 export const stringToColor = function stringToColor(str) {
   let hash = 0;
@@ -95,6 +97,165 @@ const removeColumnEvent = () => {
   })
 }
 
+
+// labels
+const addSaveLabels = () => {
+  const notes = document.querySelectorAll(".note");
+  const keys = Object.keys(localStorage);
+  notes.forEach((note) => {
+    const btnWrapper = note.querySelector(".labels__menu-content");
+    const labelsWrapper = note.querySelector(".note__labels");
+    keys.forEach((key) => {
+      if (String(note.dataset.id) === key) {
+        const label =  labelsWrapper.querySelectorAll('.label')
+        const btn = btnWrapper.querySelectorAll('.label-btn')
+
+        const local = localStorage[key]
+        label.forEach((el,i) =>{
+          if (+local & (1 << i)) {
+            el.classList.toggle("active");
+            btn[i].classList.toggle("active");
+          }
+        })
+
+        // btnWrapper.innerHTML = JSON.parse(localStorage[key]).buttonsHtml;
+        // labelsWrapper.innerHTML = JSON.parse(localStorage[key]).labelsHtml;
+      }
+    });
+  });
+};
+
+const addLabel = () => {
+  function addToStorage(noteId, labels, buttons, noteBg, noteColor) {
+    localStorage.setItem(noteId, JSON.stringify({ id: noteId, labelsHtml: labels, buttonsHtml: buttons, noteBackground: noteBg || '', noteColor: noteColor || '' }));
+  }
+
+  function saveToDatabase() {
+    document.addEventListener("click", (e) => {
+      if (e.target.classList.contains("button_save")) {
+        const parentNote = e.target.closest(".note");
+        const menu = e.target.closest(".note__menu");
+        const noteId = parentNote.dataset.id;
+        menu.classList.remove("active");
+        const noteBody = parentNote.innerHTML;
+        const $column = e.target.closest(".column");
+        const payload = {
+          id: noteId,
+          content: "test 343434"
+        };
+      }
+    });
+  }
+  saveToDatabase();
+
+  function addActiveLabel() {
+    document.addEventListener("click", (e) => {
+      if (e.target.classList.contains("label-btn")) {
+        if (labelOn)return ;console.log('label-btn');
+        const btnColor = e.target.dataset.hex;
+        const parent = e.target.closest(".note");
+        const btns = parent.querySelectorAll(".label-btn");
+        const labelsWrapper = parent.querySelector(".note__labels");
+        const labelsBtnsWrapper = parent.querySelector("[data-type='label'] .labels__menu-content");
+        const labels = parent.querySelectorAll(".label");
+        let local = 0;
+          // = localStorage[parent.dataset.id];
+        // add active class
+        e.target.classList.toggle("active");
+        labels.forEach((label,i) => {
+          local |= Number(label.classList.contains("active"))  << i;
+          if (label.dataset.color === e.target.dataset.hex) {
+            local ^= (1 << i);
+            label.classList.toggle("active");
+          }
+        });
+        // localStorage.setItem(parent.dataset.id,local)
+        const payload = {
+          id: parent.dataset.id,
+          label: local
+        }
+
+        putFetch('/api/note/label', payload)
+          .then((json) => {console.log('putFetch');
+            updateLog();
+            labelOn=false;
+          })
+        // addToStorage(parent.dataset.id, labelsWrapper.innerHTML, labelsBtnsWrapper.innerHTML);
+      }
+      if (e.target.classList.contains("member-btn")) {
+        if (avatarOn)return ;
+        const parent = e.target.closest(".note");
+        const avatars = parent.querySelectorAll('.user-info-avatar');
+
+        let local = '';
+        // add active class
+        e.target.classList.toggle("active");
+        avatars.forEach((avatar,i) => {
+          if (avatar.id === e.target.id) {
+            avatar.classList.toggle("active");
+          }
+          local += avatar.classList.contains("active") ? `${avatar.id},` : '' ;
+        });
+
+        const payload = {
+          id: parent.dataset.id,
+          member: local
+        }
+
+        putFetch('/api/note/member', payload)
+          .then((json) => {
+            updateLog();
+            avatarOn = false;
+          })
+      }
+    });
+  }
+  addActiveLabel();
+
+  function addLabelNote() {}
+  addLabelNote();
+};
+
+const noteMenu = () => {
+  function openMenu() {
+    document.addEventListener("click", (e) => {
+      if (e.target.closest(".note__icon")) {
+        const parent = e.target.closest(".note");
+        const menu = parent.querySelector(".note__menu");
+        menu.classList.toggle("active");
+      }
+    });
+  }
+  openMenu();
+
+  function openSubMenu() {
+    document.addEventListener("click", (e) => {
+      if (e.target.classList.contains("button")) {
+        const btn = e.target;
+        const parent = e.target.closest(".note");
+        const menus = parent.querySelectorAll(".sub-menu");
+
+        menus.forEach((menu) => {
+          if (menu.dataset.type === btn.dataset.action) {
+            menu.classList.toggle("active");
+          }
+        });
+      }
+    });
+  }
+  openSubMenu();
+
+  function closeMenu() {
+    document.addEventListener("click", (e) => {
+      if (e.target.classList.contains("close")) {
+        e.target.parentElement.classList.remove("active");
+      }
+    });
+  }
+  closeMenu();
+};
+// end labels
+
 const dropdownEvent = (node) => {
   $columnList.addEventListener('click', (event) => {
     if (event.target.className === node) {
@@ -129,7 +290,7 @@ const addNoteEvent = () => {
           const $dropdown = $('.dropdown', $column)
           const $columnBody = $('.columnBody', $column);
           const $circle = $('.circle', $column);
-          const note = new Note(data.id, data.content, data.addedBy, data.members);
+          const note = new Note(data.id, data.content, data.addedBy, data.members, data.label);
           $columnBody.innerHTML += note.render();
           $circle.innerHTML++;
           $textarea.value = '';
@@ -256,6 +417,9 @@ const setEventHandler = () => {
   addNoteEvent();
   noteDnDEvent();
   editNoteEvent();
+  // addSaveLabels();
+  addLabel();
+  noteMenu();
 }
 
 const headerRender = () => {
@@ -275,6 +439,7 @@ const headerRender = () => {
           json.data.forEach(el => {
               localStorage.setItem(`user${el.id}`, el.name);
               const elementAvatar = $userInfo.appendChild(document.getElementById('avatar').cloneNode());
+              elementAvatar.classList.toggle('active')
               const name = el.name.toUpperCase();
               const letter = name.substr(0, 2);
               const backgroundColor = stringToColor(name);
@@ -285,7 +450,6 @@ const headerRender = () => {
               elementAvatar.id += el.id;
             }
           )
-          document.getElementById('avatar').style.width = '0';
         })
     })
 }

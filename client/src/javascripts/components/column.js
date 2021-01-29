@@ -32,8 +32,9 @@ export class Column {
 
         const $columnBody = $('.columnBody', $columnDiv);
         this.list.forEach((n) => {
-            const note = new Note(n.id, n.content, n.addedBy, n.members);
+            const note = new Note(n.id, n.content, n.addedBy, n.members, n.label);
             this.addNote($columnBody, note);
+
         })
         return $columnDiv.outerHTML;
     }

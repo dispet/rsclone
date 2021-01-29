@@ -44,6 +44,19 @@ class NoteController {
                 res.send(response);
             }
         }
+        this.updateLabelNote = async (req, res, next) => {
+            try {
+                const noteDTO = {
+                    id: req.body.id,
+                    label: req.body.label
+                }
+                req.logData = await this.nService.updateLabel(noteDTO);
+                next();
+            } catch (err) {
+                const response = resObject(400, false, (err.sqlMessage)? err.sqlMessage : err.message, null);
+                res.send(response);
+            }
+        }
 
         this.addMemberNote = async (req, res, next) => {
             try {
@@ -53,6 +66,20 @@ class NoteController {
                     member: req.body.member
                 }
                 req.logData = await this.nService.addMember(noteDTO);
+                next();
+            } catch (err) {
+                const response = resObject(400, false, (err.sqlMessage)? err.sqlMessage : err.message, null);
+                res.send(response);
+            }
+        }
+
+        this.updateMemberNote = async (req, res, next) => {
+            try {
+                const noteDTO = {
+                    id: req.body.id,
+                    member: req.body.member
+                }
+                req.logData = await this.nService.updateMember(noteDTO);
                 next();
             } catch (err) {
                 const response = resObject(400, false, (err.sqlMessage)? err.sqlMessage : err.message, null);

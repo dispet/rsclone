@@ -47,6 +47,17 @@ class NoteService {
         }
     }
 
+    async updateLabel(noteDTO) {
+        try {
+            const origin = await this.noteModel.SELECT(noteDTO.id);
+            await this.noteModel.UPDATE_LABEL(noteDTO);
+            // noteDTO.subject = `${ origin.content } -> ${ noteDTO.content }`;
+            return noteDTO;
+        } catch (err) {
+            throw err;
+        }
+    }
+
     async addMember(noteDTO) {
         try {
             const origin = await this.noteModel.SELECT(noteDTO.id);
@@ -54,6 +65,15 @@ class NoteService {
             noteDTO.member = origin.members + noteDTO.member;
             await this.noteModel.ADDMEMBER(noteDTO);
             noteDTO.subject = `Member ${noteDTO.name} to ${ origin.content }`;
+            return noteDTO;
+        } catch (err) {
+            throw err;
+        }
+    }
+    async updateMember(noteDTO) {
+        try {
+            await this.noteModel.ADDMEMBER(noteDTO);
+            // noteDTO.subject = `Member ${noteDTO.name} to ${ origin.content }`;
             return noteDTO;
         } catch (err) {
             throw err;

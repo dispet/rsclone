@@ -47,10 +47,38 @@ class LogModel {
         })
     }
 
+    UPDATE_MEMBER_NOTE(info) {
+        return new Promise((resolve, reject) => {
+            const query = "INSERT INTO Log(action, user_id, subject) VALUES('update',?,?)";
+            const params = [info.user_id, info.member];
+            connection.execute(query, params, (err, rows, fields) => {
+                if (err) {
+                    reject(err);
+                }
+                const insertId = rows.insertId;
+                resolve(insertId);
+            })
+        })
+    }
+
     UPDATE_NOTE(info) {
         return new Promise((resolve, reject) => { // subject : "Previous contents -> Changed contents"
             const query = "INSERT INTO Log(action, user_id, subject) VALUES('updated',?,?)";
             const params = [info.user_id, info.subject];
+            connection.execute(query, params, (err, rows, fields) => {
+                if (err) {
+                    reject(err);
+                }
+                const insertId = rows.insertId;
+                resolve(insertId);
+            })
+        })
+    }
+
+    UPDATE_LABEL_NOTE(info) {
+        return new Promise((resolve, reject) => { // subject : "Previous contents -> Changed contents"
+            const query = "INSERT INTO Log(action, user_id, subject) VALUES('updated label',?,?)";
+            const params = [info.user_id, info.label];
             connection.execute(query, params, (err, rows, fields) => {
                 if (err) {
                     reject(err);

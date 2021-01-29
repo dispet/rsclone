@@ -47,6 +47,18 @@ class LogController {
                 res.send(response);
             }
         }
+        this.updateLabelNoteLog = async (req, res, next) => {
+            const logData = req.logData;
+            logData.user_id = req.session.userInfo.id;
+            try {
+                await this.lService.updateLabelNote(logData);
+            } catch (err) {
+                console.error(err);
+            } finally {
+                const response = resObject(200, true, 'Change note label', logData);
+                res.send(response);
+            }
+        }
 
         this.addMemberNoteLog = async (req, res, next) => {
             const logData = req.logData;
@@ -57,6 +69,18 @@ class LogController {
                 console.error(err);
             } finally {
                 const response = resObject(200, true, 'Member addition to note success', logData);
+                res.send(response);
+            }
+        }
+        this.updateMemberNoteLog = async (req, res, next) => {
+            const logData = req.logData;
+            logData.user_id = req.session.userInfo.id;
+            try {
+                await this.lService.updateMemberNote(logData);
+            } catch (err) {
+                console.error(err);
+            } finally {
+                const response = resObject(200, true, 'Change note member', logData);
                 res.send(response);
             }
         }
@@ -78,7 +102,6 @@ class LogController {
         }
 
         this.removeNoteLog = async (req, res, next) => {
-            console.log('this.removeNoteLog')
             const logData = req.logData;
             logData.user_id = req.session.userInfo.id;
             try {

@@ -32,10 +32,27 @@ class LogService {
         }
     }
 
+    async updateMemberNote(data) {
+        try {
+            await this.logModel.UPDATE_MEMBER_NOTE(data);
+        } catch (err) {
+            throw err;
+        }
+    }
+
     async updateNote(data) {
 
         try {
             await this.logModel.UPDATE_NOTE(data);
+        } catch (err) {
+            throw err;
+        }
+    }
+
+    async updateLabelNote(data) {
+
+        try {
+            await this.logModel.UPDATE_LABEL_NOTE(data);
         } catch (err) {
             throw err;
         }
