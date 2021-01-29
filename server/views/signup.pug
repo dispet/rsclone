@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  form(class='signupForm form', method='post')
+    div.formTitle signup
+    table
+        tr
+            td
+                input.input(type='email', placeholder='email', name='email', required)
+        tr
+            td
+                input.input(type='password', placeholder='password', name='password', required)
+        tr
+            td
+                input.input(type='text', placeholder='name',name='name', required)
+        tr
+            td
+                input.input(type='text', placeholder='phone', name='phone', required)
+        tr
+            td
+                input.submit(type='submit', value='signup')
+
+  script(type="module" src="/dist/signup.bundle.js")
