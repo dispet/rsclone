@@ -3,12 +3,15 @@ extends layout
 block content
 
   header.no-select
-    div.title
-    div.members
-      div.user-info-name#name Members:
-      div.user-info
-        div.user-info-avatar(title="avatar")#avatar
-    span.openNav &#x2630;
+    .container
+      .row
+        div.title.col-md-4
+        div.members.col-md-4
+          div.user-info-name#name Members:
+          div.user-info
+            div.user-info-avatar(title="avatar")#avatar
+        div.col-md-4.text-right
+          span.openNav &#x2630;
 
   section.todo#main
     div.columnList

@@ -12,7 +12,7 @@ export class Log {
     }
 
     render() {
-        return `<div class="log no-select"><span class="icon"><i class="fas fa-user-clock"></i></span>
+        return `<div class="log no-select list-group-item list-group-item-info"><span class="icon"><i class="fas fa-user-clock"></i></span>
                     <div class="logcontent"><span class="blueword">@${this.name} </span><span class="act">${this.action} </span><span class="blueword">${this.subject} </span><span>${this.toFrom}</span>
                         <div class="logtime">${this.logtime}</div>
                     </div>

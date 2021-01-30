@@ -40,7 +40,7 @@ export class Note {
     // $noteLabels.innerHTML = labels.join("");
     const $dataset = document.createAttribute('data-id');
     const $draggable = document.createAttribute('draggable');
-    $noteDiv.className = 'note';
+    $noteDiv.className = 'note card';
     $dataset.value = this.id;
     $draggable.value = 'true';
     $noteDiv.setAttributeNode($dataset);
@@ -57,21 +57,20 @@ export class Note {
                     <div class="noteFooter"></div>
                     <div class="note__bottom">
                       <div class="note__icon">
-                          <i class="fas fa-pen"></i>
+                        <i class="fas fa-cog"></i>
                       </div>
                       <div class="note__menu">
                         <span class="close note__menu-close">&times;</span>
                         <div class="note__menu-container">
-                          <button class="button button_save">Save</button>
                           <div class="note__btns">
                             <div class="note__btns_item">
-                              <button data-action='label' class="button note__btn">Edit labels</button>
+                              <button data-action='label' class="btn button note__btn">Edit labels</button>
                             </div>
                             <div class="note__btns_item">
-                              <button data-action='note-color' class="button note__btn">Note color</button>
+                              <button data-action='note-color' class="btn button note__btn">Note color</button>
                             </div>
                             <div class="note__btns_item">
-                            <button data-action='members' class="button note__btn">Change members</button>
+                            <button data-action='members' class="btn button note__btn">Change members</button>
                           </div>
                           </div>
                         </div>

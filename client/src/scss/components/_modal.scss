@@ -31,22 +31,11 @@
     justify-content: space-between;
     color: white;
     margin-top: 10px;
-    
+
 }
 
 .modal_btns > div {
     width: 49%;
-    height: 40px;
-    border-radius: 8px;
-    line-height: 40px;
-    cursor: pointer;
-}
-
-.submitBtn {
-    background-color: $mintBtnColor;
-}
-.cancelBtn {
-    background-color: $redBtnColor;
 }
 
 .modal {

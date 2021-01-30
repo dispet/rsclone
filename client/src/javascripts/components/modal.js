@@ -25,8 +25,8 @@ export class Modal {
       return `<div class="modal_header">${this.name}
                     <textarea class="modal_textarea" placeholder="Contents" name="content">${this.content}</textarea>
                         <div class="modal_btns">
-                            <div class="submitBtn">${this.type}</div>
-                            <div class="cancelBtn">Cancel</div>
+                            <div class="btn btn-primary submitBtn">${this.type}</div>
+                            <div class="btn btn-secondary cancelBtn">Cancel</div>
                         </div>
                     </div>`
     }

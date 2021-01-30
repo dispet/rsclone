@@ -97,6 +97,31 @@ const removeColumnEvent = () => {
   })
 }
 
+// note color
+const addNoteBg = () => {
+  document.addEventListener("click", (e) => {
+      const note = e.target.closest(".note");
+      if (note) {
+          let noteBackground = "";
+          let noteColor = "";
+          const inputBackground = note.querySelector("#note-background");
+          const noteHeader = note.querySelector(".noteHeader");
+          const inputColor = note.querySelector("#note-color");
+          const noteIcon = note.querySelector(".note__icon");
+          inputBackground.addEventListener("blur", function () {
+              noteBackground = this.value;
+              note.style.backgroundColor = noteBackground;
+          });
+          inputColor.addEventListener("blur", function () {
+              noteColor = this.value;
+              noteHeader.style.color = noteColor;
+              noteIcon.style.color = noteColor;
+          });
+      }
+  });
+};
+// note color
+
 
 // labels
 const addSaveLabels = () => {
@@ -335,9 +360,9 @@ const editNoteEvent = () => {
   const $noteModal = $('.note_modal');
   const $modalContent = $('.modal_content', $noteModal);
   $columnList.addEventListener('dblclick', (event) => {
-    if (event.target.className === 'noteTitle') {
+    if (event.target.closest(".noteTitle")) {
       const id = event.target.closest('.note').dataset.id;
-      const name = $('.noteName', event.target).innerHTML;
+      const name = $('.noteName', event.target.closest(".noteTitle")).innerHTML;
       const modal = new Modal('Edit Note', 'Edit', name, id);
       $modalContent.innerHTML = modal.render();
       modal.addEventHandler($noteModal);
@@ -420,6 +445,7 @@ const setEventHandler = () => {
   // addSaveLabels();
   addLabel();
   noteMenu();
+  addNoteBg();
 }
 
 const headerRender = () => {

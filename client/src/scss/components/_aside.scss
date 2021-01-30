@@ -1,108 +1,123 @@
-@import '../common/variable';
+@import "../common/variable";
 
 * {
     transition: margin-right 0.35s;
 }
 
 .sidenav {
-  height: 100%;
-  width: 0;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  right: 0;
-  background-color:white;
-  overflow-x: hidden;
-  transition: 0.25s;
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: white;
+    overflow-x: hidden;
+    transition: 0.25s;
+    &::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        border-radius: 10px;
+        background-color: #f5f5f5;
+    }
+
+    &::-webkit-scrollbar {
+        width: 12px;
+        background-color: #f5f5f5;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        background-color: #555;
+    }
 }
 
 .sidenav hr {
-  size:2px;
+    size: 2px;
 }
 
 .navHeader {
-  background-color: $backgrey;
-  font-weight: bold;
-  margin-top: 0;
-  padding-left: 10px;
-  height: 30px;
-  line-height: 30px;
-  display: flex;
-  justify-content: space-between;
-  border-bottom: solid;
-  border-width: 1px;
-  border-color: darkgray;
+    background-color: #3b9703;
+    color: #fff;
+    font-weight: bold;
+    margin-top: 0;
+    padding-left: 10px;
+    height: 30px;
+    line-height: 30px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: solid;
+    border-width: 1px;
 }
 
 .closebtn {
-  top:0;
-  font-size: 25px;
-  line-height: 25px;
-  cursor: pointer;
+    top: 0;
+    font-size: 25px;
+    line-height: 25px;
+    cursor: pointer;
 }
 
-
 .menubtn {
-  height: 40px;
-  width: 360px;
-  line-height: 40px;
-  border-bottom: solid;
-  border-width: 1px;
-  border-color: darkgray;
-
-  text-align: center;
-  font-weight: bold;
-  cursor: pointer;
+    height: 40px;
+    width: 360px;
+    line-height: 40px;
+    border-bottom: solid;
+    border-width: 1px;
+    background: #3b9703;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
 }
 
 .menubtn:hover {
-  background-color: #818181;
-}
-.logoutbtn {
-}
-
-.signupbtn {
-  
+    background-color: #fff;
+    color: #3b9703;
 }
 
 .loglist {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
-.log{
-  display: flex;
-  height: 90px;
-  width: 360px;
-  padding: 20px 10px 10px 10px;
-  border-bottom: solid;
-  border-width: 1px;
-  border-color: darkgray;
+.log {
+    display: flex;
+    overflow-wrap: break-word;
+    width: 360px;
 }
 
 .icon {
-  padding-top: 10px;
+    padding-top: 10px;
 }
 
-
-.logcontent{
-  margin-left:5px;
-  width: 90%;
+.logcontent {
+    margin-left: 5px;
+    width: 90%;
 }
 
 .logtime {
-  margin-top: 5px;
-  font-size: 15px;
-  color:darkgrey;
+    margin-top: 5px;
+    font-size: 15px;
+    color: darkgrey;
 }
 
 .blueword {
-  font-weight: bold;
-  color:rgb(46,128,221);
+    font-weight: bold;
+    color: rgb(46, 128, 221);
 }
 .openNav {
-  font-size:30px;
-  margin-right: 40px;
-  cursor:pointer;
+    position: relative;
+    display: inline-block;
+    font-size: 30px;
+    top: 0;
+    margin-right: 40px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    transition: transform 0.3s;
+    &:hover {
+        transform: rotate(90deg);
+    }
 }

@@ -13,7 +13,7 @@ export class Column {
         const $columnDiv = document.createElement('div');
         const $dataset = document.createAttribute('data-id');
 
-        $columnDiv.className = 'column';
+        $columnDiv.className = 'column card';
         $dataset.value = this.id;
         $columnDiv.setAttributeNode($dataset);
 
