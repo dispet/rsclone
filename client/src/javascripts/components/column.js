@@ -22,10 +22,10 @@ export class Column {
         <div class="addBtn">+</div>
         <div class="closeBtn">&times</div>
         </div >
-        <div class="dropdown hidden"><textarea placeholder="Enter content" name="name"></textarea>
+        <div class="dropdown hidden"><textarea data-translate="Enter content" placeholder="Enter content" name="name"></textarea>
             <div class="dropdown_btns">
-                <div class="note-add-btn">Add</div>
-                <div class="cancel-btn">Cancel</div>
+                <div data-translate="Add" class="note-add-btn">Add</div>
+                <div data-translate="cancel" class="cancel-btn">Cancel</div>
             </div>
         </div>
         <div class="columnBody"></div>`

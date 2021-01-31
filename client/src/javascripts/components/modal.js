@@ -29,7 +29,7 @@ export class Modal {
   render() {
     if (this.name === 'Edit Note') {
       return `<div class="modal_header">${this.translate(this.lang, this.name)}
-                    <textarea class="modal_textarea" placeholder="Contents" name="content">${this.content}</textarea>
+                    <textarea class="modal_textarea" placeholder="${this.translate(this.lang, 'Contents')}" name="content">${this.content}</textarea>
                         <div class="modal_btns">
                             <div data-translate="modalEdit" class="btn btn-primary submitBtn">${this.translate(this.lang, this.type)}</div>
                             <div data-translate="modalCancel" class="btn btn-secondary cancelBtn">${this.translate(this.lang, 'cancel')}</div>
@@ -45,11 +45,11 @@ export class Modal {
                         </div>
                     </div>`
     }
-    return `<div class="modal_header">${this.name}
-                    <input class="modal_columnText" type="text" placeholder="Column name" name="name" value=${this.content || ''}>
+    return `<div class="modal_header">${this.translate(this.lang, this.name)}
+                    <input class="modal_columnText" type="text" placeholder="${this.translate(this.lang, this.name)}" name="name" value=${this.content || ''}>
                         <div class="modal_btns">
-                            <div class="btn btn-primary submitBtn">${this.type}</div>
-                            <div class="btn btn-secondary cancelBtn">Cancel</div>
+                            <div class="btn btn-primary submitBtn">${this.translate(this.lang, this.type)}</div>
+                            <div class="btn btn-secondary cancelBtn">${this.translate(this.lang, 'cancel')}</div>
                         </div>
                     </div>`
 

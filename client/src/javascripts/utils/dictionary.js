@@ -22,6 +22,11 @@ const dictionary = {
       "Edit": "Edit",
       "Add": "Add",
       "Edit Note": "Edit Note",
+      "Enter content": "Enter content",
+      "Add Column": "Add Column",
+      "Column name": "Column name",
+      "Contents": "Contents",
+      "Remove note": "Remove note",
   },
   ru: {
       language: "Язык:",
@@ -45,6 +50,11 @@ const dictionary = {
       "Edit": "Изменить",
       "Add": "Добавить",
       "Edit Note": "Изменить заметку",
+      "Enter content": "Введите текст",
+      "Add Column": "Добавить колонку",
+      "Column name": "Название колонки",
+      "Contents": "Текст",
+      "Remove note": "Удалить заметку",
   }
   ,
   fr: {
@@ -69,6 +79,11 @@ const dictionary = {
       "Edit": "Éditer",
       "Add": "Ajouter à",
       "Edit Note": "Modifier la note",
+      "Enter content": "Entrez du texte",
+      "Add Column": "Ajouter une colonne",
+      "Column name": "Nom de colonne",
+      "Contents": "Texte",
+      "Remove note": "Supprimer la note",
   }
 };
 
