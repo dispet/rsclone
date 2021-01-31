@@ -1,4 +1,5 @@
 import {$, getFetch, postFetch, putFetch, updateLog, findColumn, findNote, watchBtn, $All} from '../utils'
+import {dictionary} from '../utils/dictionary'
 import {Column} from './column';
 import {dndColumnHandler, dndNoteHandler} from './dragNdrop';
 import {stringToColor,usersAdded} from "../main";
@@ -13,20 +14,25 @@ const getModalRoot = (event) => {
 }
 
 export class Modal {
-  constructor(name, type, content = null, id = null) {
+  constructor(name, type, content = null, id = null, lang = null) {
     this.name = name;
     this.type = type
     this.content = content;
     this.id = id;
+    this.lang = lang;
+  }
+
+  translate(lang, dataWord){
+    return dictionary[lang][dataWord];
   }
 
   render() {
     if (this.name === 'Edit Note') {
-      return `<div class="modal_header">${this.name}
+      return `<div class="modal_header">${this.translate(this.lang, this.name)}
                     <textarea class="modal_textarea" placeholder="Contents" name="content">${this.content}</textarea>
                         <div class="modal_btns">
-                            <div class="btn btn-primary submitBtn">${this.type}</div>
-                            <div class="btn btn-secondary cancelBtn">Cancel</div>
+                            <div data-translate="modalEdit" class="btn btn-primary submitBtn">${this.translate(this.lang, this.type)}</div>
+                            <div data-translate="modalCancel" class="btn btn-secondary cancelBtn">${this.translate(this.lang, 'cancel')}</div>
                         </div>
                     </div>`
     }
@@ -34,16 +40,16 @@ export class Modal {
       return `<div class="modal_header">${this.name}
                     <input class="modal_columnText" type="text" placeholder="Member name" name="member">${this.content}</textarea>
                         <div class="modal_btns">
-                            <div class="submitBtn">${this.type}</div>
-                            <div class="cancelBtn">Cancel</div>
+                            <div class="btn btn-primary submitBtn">${this.type}</div>
+                            <div class="btn btn-secondary cancelBtn">Cancel</div>
                         </div>
                     </div>`
     }
     return `<div class="modal_header">${this.name}
                     <input class="modal_columnText" type="text" placeholder="Column name" name="name" value=${this.content || ''}>
                         <div class="modal_btns">
-                            <div class="submitBtn">${this.type}</div>
-                            <div class="cancelBtn">Cancel</div>
+                            <div class="btn btn-primary submitBtn">${this.type}</div>
+                            <div class="btn btn-secondary cancelBtn">Cancel</div>
                         </div>
                     </div>`
 

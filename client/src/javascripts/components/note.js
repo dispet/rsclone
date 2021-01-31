@@ -64,20 +64,20 @@ export class Note {
                         <div class="note__menu-container">
                           <div class="note__btns">
                             <div class="note__btns_item">
-                              <button data-action='label' class="btn button note__btn">Edit labels</button>
+                              <button data-action='label' data-translate="editLabels" class="btn button note__btn">Edit labels</button>
                             </div>
                             <div class="note__btns_item">
-                              <button data-action='note-color' class="btn button note__btn">Note color</button>
+                              <button data-action='note-color' data-translate="editColor" class="btn button note__btn">Note color</button>
                             </div>
                             <div class="note__btns_item">
-                            <button data-action='members' class="btn button note__btn">Change members</button>
+                            <button data-action='members' data-translate="changeMembers" class="btn button note__btn">Change members</button>
                           </div>
                           </div>
                         </div>
                       </div>
                       <div data-type="label" class="sub-menu labels-menu">
                         <span class="close labels__menu-close">&times;</span>
-                        <div class="sub-menu__title">
+                        <div data-translate="labelTitle" class="sub-menu__title">
                           Labels
                         </div>
                         <div class="labels__menu-content">
@@ -86,21 +86,21 @@ export class Note {
                       </div>
                       <div data-type="note-color" class="sub-menu labels-menu">
                       <span class="close labels__menu-close">&times;</span>
-                        <div class="sub-menu__title">
+                        <div data-translate="noteColor" class="sub-menu__title">
                           Note color
                         </div>
                         <div class="labels__menu-item">
-                        <label for="note-background">Background</label>
+                        <label data-translate="noteBackground" for="note-background">Background</label>
                           <input type="color" id="note-background" name="note-background"
                         value="#e66465">
-                        <label for="note-background">color</label>
+                        <label for="note-color" data-translate="noteLabelColor">color</label>
                           <input type="color" id="note-color" name="note-color"
                         value="#e66465">
                         </div>
                       </div>
                       <div data-type="members" class="sub-menu members-menu">
                        <span class="close labels__menu-close">&times;</span>
-                       <div class="sub-menu__title">
+                       <div class="sub-menu__title" data-translate="membersTitle">
                         Members
                        </div>
                      </div>

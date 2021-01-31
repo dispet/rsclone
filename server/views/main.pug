@@ -5,17 +5,23 @@ block content
   header.no-select
     .container
       .row
-        div.title.col-md-4
-        div.members.col-md-4
-          div.user-info-name#name Members:
+        div.lang.col-md-3
+          label(for="lang", data-translate='language') Language:
+          select.select-lang(name="language" id="lang")
+            option(value="en") En
+            option(value="ru") Ru
+            option(value="fr") Fr
+        div.title.col-md-3
+        div.members.col-md-3
+          div.user-info-name#name(data-translate='members') Members:
           div.user-info
             div.user-info-avatar(title="avatar")#avatar
-        div.col-md-4.text-right
+        div.col-md-3.text-right
           span.openNav &#x2630;
 
   section.todo#main
     div.columnList
-    div.addColumn + Add Column
+    div.addColumn(data-translate='addColumn') + Add Column
     div.column_modal.modal.hidden
       div.modal_overlay
       div.modal_content
@@ -25,19 +31,19 @@ block content
 
   aside#mySidenav.sidenav
     div.navHeader.no-select
-      div &#x2630 Menu
+      div(data-translate='menu') &#x2630 Menu
       div.closebtn &times
     div.signupbtn.menubtn
       i.fas.fa-user-plus
-      span(title="Invite to board") Add Member
+      span(title="Invite to board", data-translate='addMember') Add Member
     div.logoutbtn.menubtn
       i.fas.fa-sign-out-alt
-      span  Log out
+      span(data-translate='logOut') Log out
     div.loglist
       div.navHeader.no-select
         div
           i.fas.fa-bell
-          span  Activity
+          span(data-translate='activity') Activity
 
   footer.footer
     p
@@ -46,6 +52,6 @@ block content
       a(href="https://github.com/AlexeyFL") AlexeyFL
       a(href="https://github.com/dispet") unclekoin
       a(href="https://rs.school/js")
-        img(src="dist/src/assets/img/rs_school_js.svg" width="50" height="50" alt="")
+        img(src="dist/src/assets/img/rs_school_js.svg" width="50" height="50" alt="Rolling Scopes")
 
   script(type="module" src="/dist/main.bundle.js")

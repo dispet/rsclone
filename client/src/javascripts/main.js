@@ -1,4 +1,5 @@
 import {$, $All, getFetch, postFetch, deleteFetch, updateLog, watchBtn, putFetch} from './utils'
+import {dictionary} from './utils/dictionary';
 import {Column} from './components/column'
 import {Note} from './components/note'
 import {Modal} from './components/modal'
@@ -121,6 +122,22 @@ const addNoteBg = () => {
   });
 };
 // note color
+
+// change lang
+const changeLang = () => {
+  const selectLang = document.getElementById("lang");
+  const translated = document.querySelectorAll("[data-translate]");
+
+  function translateWord(lang, dataWord, elem){
+    elem.textContent = dictionary[lang][dataWord];
+  }
+  selectLang.addEventListener("change", function () {
+      translated.forEach((item) => {
+          translateWord(this.value, item.dataset.translate, item);
+      });
+  });
+};
+// change lang
 
 
 // labels
@@ -358,12 +375,13 @@ const removeNoteEvent = () => {
 
 const editNoteEvent = () => {
   const $noteModal = $('.note_modal');
+  const $selectLang = $('#lang');
   const $modalContent = $('.modal_content', $noteModal);
   $columnList.addEventListener('dblclick', (event) => {
     if (event.target.closest(".noteTitle")) {
       const id = event.target.closest('.note').dataset.id;
       const name = $('.noteName', event.target.closest(".noteTitle")).innerHTML;
-      const modal = new Modal('Edit Note', 'Edit', name, id);
+      const modal = new Modal('Edit Note', 'Edit', name, id, $selectLang.value);
       $modalContent.innerHTML = modal.render();
       modal.addEventHandler($noteModal);
       $noteModal.classList.toggle('hidden');
@@ -446,6 +464,7 @@ const setEventHandler = () => {
   addLabel();
   noteMenu();
   addNoteBg();
+  changeLang();
 }
 
 const headerRender = () => {

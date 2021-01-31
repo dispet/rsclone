@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  
+
   form(class='loginForm form', method='post')
     div.formTitle login
     table
@@ -17,7 +17,7 @@ block content
           input.submit(type='submit', value='login')
       tr
         td
-          span Not yet a member?
-            a(href='/signup') signup
+          span(data-translate='notYetMember') Not yet a member?
+            a(href='/signup', data-translate='signup') signup
 
   script(type="module" src="/dist/login.bundle.js")
