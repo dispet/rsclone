@@ -48,6 +48,9 @@
     justify-content: space-between;
     border-bottom: solid;
     border-width: 1px;
+    @media (max-width: 770px) {
+        padding-left: 55px;
+    }
 }
 
 .closebtn {
@@ -119,5 +122,10 @@
     transition: transform 0.3s;
     &:hover {
         transform: rotate(90deg);
+    }
+    @media (max-width: 770px) {
+        position: absolute;
+        top: -55px;
+        right: -12px;
     }
 }

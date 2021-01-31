@@ -1,9 +1,17 @@
 @import "common/reset", "common/variable", "components/modal", "components/aside", "components/labels";
 
+html {
+    height: 100%;
+}
 body {
+    position: relative;
     overflow-y: auto;
     font-family: "Montserrat", sans-serif;
     height: 100vh;
+    @media (max-width: 770px) {
+        height: 100%;
+        padding-bottom: 170px;
+    }
 }
 
 .no-select {
@@ -22,6 +30,13 @@ header {
     color: white;
     background: #3b9703;
     padding: 15px 0;
+    @media (max-width: 770px) {
+        text-align: center;
+        .lang,
+        .title {
+            margin-bottom: 10px;
+        }
+    }
 }
 
 .team {
@@ -73,7 +88,7 @@ header {
 }
 
 .title {
-    font-size: 30px;
+    font-size: 23px;
     font-weight: 700;
 }
 
@@ -82,6 +97,12 @@ header {
     width: 100%;
     height: 88%;
     padding: 30px;
+    @media (max-width: 770px) {
+        height: 100%;
+        flex-direction: column-reverse;
+        justify-content: flex-end;
+        padding: 30px 3px;
+    }
 }
 
 .columnList {
@@ -103,6 +124,9 @@ header {
         box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
         background-color: #555;
     }
+    @media (max-width: 770px) {
+        height: 100%;
+    }
 }
 
 .column {
@@ -114,6 +138,10 @@ header {
     margin-bottom: 10px;
     border-radius: 8px;
     box-shadow: $shadow;
+    @media (max-width: 770px) {
+        display: block;
+        margin-right: 0;
+    }
 }
 
 .columnHeader {
@@ -188,6 +216,9 @@ header {
     background-color: white;
     border-radius: 8px;
     max-width: 260px;
+    @media (max-width: 770px) {
+        max-width: 100%;
+    }
 }
 
 .noteHeader {
@@ -198,7 +229,7 @@ header {
 }
 
 .noteTitle {
-  display: inline-block;
+    display: inline-block;
     width: 85%;
     padding-top: 10px;
     cursor: pointer;
@@ -278,17 +309,25 @@ textarea {
     line-height: 60px;
     text-align: center;
     cursor: pointer;
+    @media (max-width: 770px) {
+        width: 100%;
+        margin-left: 0;
+        margin-bottom: 30px;
+    }
 }
 
 .footer {
     position: static;
     background: #2c2c2d;
     border: none;
-
+    @media (max-width: 770px) {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+    }
     a {
         text-decoration: none;
         transition: transform 0.3s;
-
         &:hover {
             transform: translateY(-2px);
         }
@@ -304,6 +343,13 @@ footer p {
     justify-content: space-evenly;
     width: 100%;
     text-align: center;
+    @media (max-width: 500px) {
+    //     flex-direction: column;
+    //     padding: 10px;
+    // }
+    // & > * {
+    //     margin-bottom: 10px;
+    }
 }
 
 a {

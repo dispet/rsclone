@@ -50,10 +50,10 @@ const addOverlayEvent = () => {
 
 const addColumnEvent = () => {
     const $addColumn = $(".addColumn");
-    const $selectLang = $("#lang");
     const $columnModal = $(".column_modal");
     const $modalContent = $(".modal_content", $columnModal);
     $addColumn.addEventListener("click", (event) => {
+        const $selectLang = $("#lang");
         const modal = new Modal("Add Column", "Add", null, null, $selectLang.value);
         $modalContent.innerHTML = modal.render();
         modal.addEventHandler($columnModal);
@@ -358,7 +358,6 @@ const addNoteEvent = () => {
                     $All(".note", $columnBody).forEach(($el) => {
                         dndNoteHandler($el);
                     });
-                    updateLog();
                 });
         }
     });
