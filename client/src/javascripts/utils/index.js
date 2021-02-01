@@ -82,7 +82,7 @@ export const updateLog = () => {
 }
 const disableBtn = ($noteAddBtn) => {
   $noteAddBtn.style.pointerEvents = 'none';
-  $noteAddBtn.style.backgroundColor = 'darkgrey';
+  // $noteAddBtn.style.backgroundColor = 'darkgrey';
 }
 
 export const watchBtn = () => {

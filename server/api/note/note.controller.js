@@ -58,6 +58,36 @@ class NoteController {
             }
         }
 
+        this.updateColorNote = async (req, res, next) => {
+            try {
+                const noteDTO = {
+                    id: req.body.id,
+                    color: req.body.color,
+                    // name: req.body.name
+                }
+                req.logData = await this.nService.updateColor(noteDTO);
+                next();
+            } catch (err) {
+                const response = resObject(400, false, (err.sqlMessage)? err.sqlMessage : err.message, null);
+                res.send(response);
+            }
+        }
+
+        this.updateBackgroundNote = async (req, res, next) => {
+            try {
+                const noteDTO = {
+                    id: req.body.id,
+                    background: req.body.background,
+                    // name: req.body.name
+                }
+                req.logData = await this.nService.updateBackground(noteDTO);
+                next();
+            } catch (err) {
+                const response = resObject(400, false, (err.sqlMessage)? err.sqlMessage : err.message, null);
+                res.send(response);
+            }
+        }
+
         this.addMemberNote = async (req, res, next) => {
             try {
                 const noteDTO = {
@@ -77,7 +107,9 @@ class NoteController {
             try {
                 const noteDTO = {
                     id: req.body.id,
-                    member: req.body.member
+                    member: req.body.member,
+                    action: req.body.action,
+                    memberId: req.body.memberId,
                 }
                 req.logData = await this.nService.updateMember(noteDTO);
                 next();

@@ -59,6 +59,31 @@ class LogController {
                 res.send(response);
             }
         }
+        this.updateColorNoteLog = async (req, res, next) => {
+            const logData = req.logData;
+            logData.user_id = req.session.userInfo.id;
+            try {
+                await this.lService.updateColorNote(logData);
+            } catch (err) {
+                console.error(err);
+            } finally {
+                const response = resObject(200, true, 'Change note color', logData);
+                res.send(response);
+            }
+        }
+
+        this.updateBackgroundNoteLog = async (req, res, next) => {
+            const logData = req.logData;
+            logData.user_id = req.session.userInfo.id;
+            try {
+                await this.lService.updateBackgroundNote(logData);
+            } catch (err) {
+                console.error(err);
+            } finally {
+                const response = resObject(200, true, 'Change note background', logData);
+                res.send(response);
+            }
+        }
 
         this.addMemberNoteLog = async (req, res, next) => {
             const logData = req.logData;

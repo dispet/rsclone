@@ -25,6 +25,8 @@ CREATE TABLE Note
     next_note  INT DEFAULT NULL,
     addedBy    INT          NOT NULL,
     members    varchar(300) NULL,
+    background    varchar(300) 'default',
+    color    varchar(300) 'default',
     label      INT          NULL,
     FOREIGN KEY (columns_id) REFERENCES Columns (id) ON DELETE cascade,
     FOREIGN KEY (addedBy) REFERENCES Users (id)

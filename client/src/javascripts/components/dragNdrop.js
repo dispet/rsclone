@@ -3,7 +3,7 @@ import { $,putFetch, updateLog, findNote} from '../utils'
 
 const onDragleave = (event) => {
     if (event.target.closest('.note')) {
-        event.target.closest('.note').style.backgroundColor = "white";
+        // event.target.closest('.note').style.backgroundColor = "white";
     }
 }
 
@@ -15,7 +15,7 @@ const onDragover = (event) => {
         const rect = $note.getBoundingClientRect();
         const centerY = rect.y + (rect.bottom- rect.top)/2;
         if (event.clientY < centerY - ((rect.bottom - rect.top) / 5) ){
-            $note.style.backgroundColor="darkgrey";
+            // $note.style.backgroundColor="darkgrey";
         }
     }
 }
@@ -38,7 +38,7 @@ const onDrop = (event) => {
         const $nextNote = event.target.closest('.note');
         if ($nextNote.style.backgroundColor === 'darkgrey' ){
             if ($note.dataset.id === $nextNote.dataset.id ){
-                $nextNote.style.backgroundColor = "white";
+                // $nextNote.style.backgroundColor = "white";
                 return;
             }
             const payload = {
@@ -48,11 +48,12 @@ const onDrop = (event) => {
             }
             putFetch('/api/note/move', payload)
             .then(json => {
-                $nextNote.style.backgroundColor = "white";
+                // $nextNote.style.backgroundColor = "white";
                 $('.columnBody', $origin).removeChild($note);
                 $('.columnBody', $column).insertBefore($note, $nextNote);
                 $('.circle', $origin).innerHTML--;
                 $('.circle', $column).innerHTML++;
+              updateLog();
             })
         }
     }else{
@@ -68,9 +69,10 @@ const onDrop = (event) => {
 
                 $('.circle', $origin).innerHTML--;
                 $('.circle',$column).innerHTML++;
+              updateLog();
             })
     }
-    updateLog();
+
 }
 
 export const dndColumnHandler = ($column) => {

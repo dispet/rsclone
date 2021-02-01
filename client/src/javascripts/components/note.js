@@ -24,12 +24,14 @@ const buttons = labelsButtons.map((btn) => {
 });
 
 export class Note {
-  constructor(id, content, addedBy, members, label) {
+  constructor(id, content, addedBy, members, label, background, color) {
     this.id = id;
     this.content = content;
     this.addedBy = addedBy;
     this.members = members;
     this.label = label;
+    this.background = background;
+    this.color = color;
   }
 
   render() {
@@ -41,6 +43,7 @@ export class Note {
     const $dataset = document.createAttribute('data-id');
     const $draggable = document.createAttribute('draggable');
     $noteDiv.className = 'note card';
+    $noteDiv.style.backgroundColor = this.background;
     $dataset.value = this.id;
     $draggable.value = 'true';
     $noteDiv.setAttributeNode($dataset);
@@ -109,7 +112,7 @@ export class Note {
     const labelsWrapper = $noteDiv.querySelector(".note__labels");
     const label =  labelsWrapper.querySelectorAll('.label')
     const btn = btnWrapper.querySelectorAll('.label-btn')
-
+    $noteDiv.querySelector(".noteHeader").style.color = this.color;
     const local = this.label
       // localStorage[key]
     label.forEach((el,i) =>{

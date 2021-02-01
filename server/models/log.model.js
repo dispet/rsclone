@@ -50,7 +50,7 @@ class LogModel {
     UPDATE_MEMBER_NOTE(info) {
         return new Promise((resolve, reject) => {
             const query = "INSERT INTO Log(action, user_id, subject) VALUES('update',?,?)";
-            const params = [info.user_id, info.member];
+            const params = [info.user_id, info.subject];
             connection.execute(query, params, (err, rows, fields) => {
                 if (err) {
                     reject(err);
@@ -78,7 +78,35 @@ class LogModel {
     UPDATE_LABEL_NOTE(info) {
         return new Promise((resolve, reject) => { // subject : "Previous contents -> Changed contents"
             const query = "INSERT INTO Log(action, user_id, subject) VALUES('updated label',?,?)";
-            const params = [info.user_id, info.label];
+            const params = [info.user_id, info.subject];
+            connection.execute(query, params, (err, rows, fields) => {
+                if (err) {
+                    reject(err);
+                }
+                const insertId = rows.insertId;
+                resolve(insertId);
+            })
+        })
+    }
+
+    UPDATE_BACKGROUND_NOTE(info) {
+        return new Promise((resolve, reject) => { // subject : "Previous contents -> Changed contents"
+            const query = "INSERT INTO Log(action, user_id, subject) VALUES('updated background',?,?)";
+            const params = [info.user_id, info.subject];
+            connection.execute(query, params, (err, rows, fields) => {
+                if (err) {
+                    reject(err);
+                }
+                const insertId = rows.insertId;
+                resolve(insertId);
+            })
+        })
+    }
+
+    UPDATE_COLOR_NOTE(info) {
+        return new Promise((resolve, reject) => { // subject : "Previous contents -> Changed contents"
+            const query = "INSERT INTO Log(action, user_id, subject) VALUES('updated color',?,?)";
+            const params = [info.user_id, info.subject];
             connection.execute(query, params, (err, rows, fields) => {
                 if (err) {
                     reject(err);

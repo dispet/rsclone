@@ -57,6 +57,23 @@ class LogService {
             throw err;
         }
     }
+    async updateBackgroundNote(data) {
+
+        try {
+            await this.logModel.UPDATE_BACKGROUND_NOTE(data);
+        } catch (err) {
+            throw err;
+        }
+    }
+
+    async updateColorNote(data) {
+
+        try {
+            await this.logModel.UPDATE_COLOR_NOTE(data);
+        } catch (err) {
+            throw err;
+        }
+    }
 
     async moveNote(data) {
         try {

@@ -21,8 +21,7 @@ export class Log {
 
     get logtime() {
         const curr = this.currentTime.getTime();
-        const createTime = new Date(this.createdAt).getTime()
-          // + (60000 * 60 * 3) + 10000;
+        const createTime = new Date(this.createdAt).getTime() + (60000 * 60 * 3) + 10000;
         const elapsedTime = curr - createTime;
         // console.log(curr,createTime,elapsedTime);
         if (elapsedTime < minute)
@@ -35,8 +34,8 @@ export class Log {
     }
 
     get toFrom() {
-        const from = `from ${this.from_column || ''} `;
-        const to = `to ${this.to_column || ''} `;
+        const from = this.from_column ? `from ${this.from_column} ` : '';
+        const to = this.to_column ? `to ${this.to_column} ` : '';
 
         return from+to;
     }

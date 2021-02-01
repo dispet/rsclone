@@ -1,10 +1,12 @@
 const NoteModel = require('../models/note.model')
 const ColumnsModel = require('../models/columns.model')
+const UsersModel = require('../models/users.model')
 
 class NoteService {
     constructor() {
         this.noteModel = new NoteModel();
         this.columnsModel = new ColumnsModel();
+        this.usersModel = new UsersModel();
     }
 
     async findOne(noteId) {
@@ -51,7 +53,29 @@ class NoteService {
         try {
             const origin = await this.noteModel.SELECT(noteDTO.id);
             await this.noteModel.UPDATE_LABEL(noteDTO);
-            // noteDTO.subject = `${ origin.content } -> ${ noteDTO.content }`;
+            noteDTO.subject = `${ origin.content } `;
+            return noteDTO;
+        } catch (err) {
+            throw err;
+        }
+    }
+
+    async updateColor(noteDTO) {
+        try {
+            const origin = await this.noteModel.SELECT(noteDTO.id);
+            await this.noteModel.UPDATE_COLOR(noteDTO);
+            noteDTO.subject = `${ origin.content } ${ origin.color } -> ${ noteDTO.color }`;
+            return noteDTO;
+        } catch (err) {
+            throw err;
+        }
+    }
+
+    async updateBackground(noteDTO) {
+        try {
+            const origin = await this.noteModel.SELECT(noteDTO.id);
+            await this.noteModel.UPDATE_BACKGROUND(noteDTO);
+            noteDTO.subject = `${ origin.content } ${ origin.background } -> ${ noteDTO.background }`;
             return noteDTO;
         } catch (err) {
             throw err;
@@ -72,8 +96,10 @@ class NoteService {
     }
     async updateMember(noteDTO) {
         try {
+            const origin = await this.noteModel.SELECT(noteDTO.id);
+            const user = await this.usersModel.SELECT(noteDTO.memberId);
             await this.noteModel.ADDMEMBER(noteDTO);
-            // noteDTO.subject = `Member ${noteDTO.name} to ${ origin.content }`;
+            noteDTO.subject = `${noteDTO.action} member ${user.name} ${noteDTO.action === 'add' ? 'to': 'from'} ${ origin.content}`;
             return noteDTO;
         } catch (err) {
             throw err;

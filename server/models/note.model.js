@@ -8,7 +8,7 @@ class NoteModel {
 
     SELECT_ALL(columnsId) {
         return new Promise((resolve, reject) => {
-            const query = "SELECT n.id, n.columns_id, n.content, n.next_note, n.members, n.label, u.name AS addedBy FROM Note n JOIN Users u ON n.addedBy = u.id WHERE n.columns_id = ?";
+            const query = "SELECT n.id, n.columns_id, n.content, n.next_note, n.members, n.label,n.background, n.color, u.name AS addedBy FROM Note n JOIN Users u ON n.addedBy = u.id WHERE n.columns_id = ?";
             connection.query(query, columnsId, (err, rows, fields) => {
                 if (err) {
                     reject(err);
@@ -20,7 +20,7 @@ class NoteModel {
 
     SELECT(noteId) {
         return new Promise((resolve, reject) => {
-            const query = "SELECT n.id, n.columns_id, n.content, n.next_note, n.members, n.label, u.name AS addedBy FROM Note n JOIN Users u ON n.addedBy = u.id WHERE n.id = ?";
+            const query = "SELECT n.id, n.columns_id, n.content, n.next_note, n.members, n.label,n.background, n.color, u.name AS addedBy FROM Note n JOIN Users u ON n.addedBy = u.id WHERE n.id = ?";
             connection.query(query, noteId, (err, rows, fields) => {
                 if (err) {
                     reject(err);
@@ -88,6 +88,34 @@ class NoteModel {
         return new Promise((resolve, reject) => {
             const query = "UPDATE Note SET todolist.Note.label = ? WHERE id = ?";
             const params = [noteDTO.label,noteDTO.id];
+            connection.execute(query, params, (err, rows, fields) => {
+                if (err) {
+                    reject(err);
+                }
+                const changedRows = rows.changedRows;
+                resolve(changedRows);
+            })
+        })
+    }
+
+    UPDATE_COLOR(noteDTO) {
+        return new Promise((resolve, reject) => {
+            const query = "UPDATE Note SET todolist.Note.color = ? WHERE id = ?";
+            const params = [noteDTO.color,noteDTO.id];
+            connection.execute(query, params, (err, rows, fields) => {
+                if (err) {
+                    reject(err);
+                }
+                const changedRows = rows.changedRows;
+                resolve(changedRows);
+            })
+        })
+    }
+
+    UPDATE_BACKGROUND(noteDTO) {
+        return new Promise((resolve, reject) => {
+            const query = "UPDATE Note SET todolist.Note.background = ? WHERE id = ?";
+            const params = [noteDTO.background,noteDTO.id];
             connection.execute(query, params, (err, rows, fields) => {
                 if (err) {
                     reject(err);
