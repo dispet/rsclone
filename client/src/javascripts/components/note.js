@@ -67,13 +67,13 @@ export class Note {
                         <div class="note__menu-container">
                           <div class="note__btns">
                             <div class="note__btns_item">
-                              <button data-action='label' data-translate="editLabels" class="btn button note__btn">Edit labels</button>
+                              <button data-action='label' data-translate='editLabels' class="btn button note__btn">Edit labels</button>
                             </div>
                             <div class="note__btns_item">
-                              <button data-action='note-color' data-translate="editColor" class="btn button note__btn">Note color</button>
+                              <button data-action='note-color' data-translate='editColor' class="btn button note__btn">Note color</button>
                             </div>
                             <div class="note__btns_item">
-                            <button data-action='members' data-translate="changeMembers" class="btn button note__btn">Change members</button>
+                            <button data-action='members' data-translate='changeMembers' class="btn button note__btn">Change members</button>
                           </div>
                           </div>
                         </div>

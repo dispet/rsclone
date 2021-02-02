@@ -69,7 +69,8 @@ const editColumnEvent = () => {
       const $column = event.target.closest(".column");
       const id = $column.dataset.id;
       const name = $(".columnName", $column).innerHTML;
-      const modal = new Modal("Edit Column", "Edit", name, id);
+      const $selectLang = $("#lang");
+      const modal = new Modal("Edit Column", "Edit", name, id, $selectLang.value);
       $modalContent.innerHTML = modal.render();
       modal.addEventHandler($columnModal);
       $columnModal.classList.toggle("hidden");
@@ -148,7 +149,6 @@ const addNoteBg = () => {
 // change lang
 const changeLang = () => {
   const selectLang = document.getElementById("lang");
-  const translated = document.querySelectorAll("[data-translate]");
 
   function translatePlaceholder(lang, dataWord, elem) {
     if (elem.getAttribute("placeholder")) {
@@ -161,6 +161,7 @@ const changeLang = () => {
   }
 
   selectLang.addEventListener("change", function () {
+    const translated = document.querySelectorAll("[data-translate]");
     translated.forEach((item) => {
       translateWord(this.value, item.dataset.translate, item);
       translatePlaceholder(this.value, item.dataset.translate, item);
@@ -380,7 +381,7 @@ const addNoteEvent = () => {
           const $dropdown = $(".dropdown", $column);
           const $columnBody = $(".columnBody", $column);
           const $circle = $(".circle", $column);
-          const note = new Note(data.id, data.content, data.addedBy, data.members, data.label);
+          const note = new Note(data.id, data.content, data.addedBy, data.members, data.label, data.background, data.color);
           $columnBody.innerHTML += note.render();
           $circle.innerHTML++;
           $textarea.value = "";
@@ -522,9 +523,9 @@ const headerRender = () => {
       $header.innerHTML = `${user.name}'s Board`;
     })
     .then(() => {
-      getFetch("/api/users/addedBy").then((json) => {
+      // getFetch("/api/users/addedBy").then((json) => {
         const $userInfo = $(".user-info");
-        json.data.forEach((el) => {
+        usersAdded.forEach((el) => {
           localStorage.setItem(`user${el.id}`, el.name);
           const elementAvatar = $userInfo.appendChild(document.getElementById("avatar").cloneNode());
           elementAvatar.classList.toggle("active");
@@ -536,7 +537,7 @@ const headerRender = () => {
           elementAvatar.style.backgroundColor = backgroundColor;
           elementAvatar.title = `${el.name} ${el.email}`;
           elementAvatar.id += el.id;
-        });
+        // });
       });
     });
 };
@@ -549,11 +550,11 @@ const render = () => {
     .then(() => {
       getFetch("/api/users/columns")
         .then((jsonC) => {
-          headerRender();
           jsonC.data.forEach((c) => {
             const column = new Column(c.id, c.name, c.user_id, c.list);
             $columnList.innerHTML += column.render();
           });
+          headerRender();
           setEventHandler();
         })
         .catch((err) => {
