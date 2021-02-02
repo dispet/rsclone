@@ -33,6 +33,23 @@ block content
     div.navHeader.no-select
       div(data-translate='menu') &#x2630 Menu
       div.closebtn &times
+    div.change-bg.menubtn
+      i.fas.fa-cog
+      span.changemainbg( data-translate='changemainbg') Change background
+      div.menu
+        .menu__content
+          span.close &times
+          .menu__item
+            button(data-action="changecolor", data-translate='changecolor').btn.btn-success.menu__btn Color
+            button(data-action="changephoto", data-translate='changephoto').btn.btn-success.menu__btn Photo
+        .menu__sub.menu__sub_column(data-type="changecolor")
+          span.close &times
+          .menu__item
+            label.menu__label(for="main-background", data-translate='changecolor') Color
+            input(type="color", id="main-background" name="main-background",value="#e66465")
+        .menu__sub(data-type="changephoto")
+          span.close &times
+          .menu__item.menu__item_wrap#images
     div.signupbtn.menubtn
       i.fas.fa-user-plus
       span(title="Invite to board", data-translate='addMember') Add Member

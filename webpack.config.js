@@ -58,6 +58,27 @@ module.exports = {
           from: path.resolve(__dirname, "client/src/assets/img/rs_school_js.svg"),
           to: path.resolve(__dirname, "server/public/dist/src/assets/img/")
         }
+        ,
+        {
+          from: path.resolve(__dirname, "client/src/assets/img/1.jpg"),
+          to: path.resolve(__dirname, "server/public/dist/src/assets/img/")
+        },
+        {
+          from: path.resolve(__dirname, "client/src/assets/img/2.jpg"),
+          to: path.resolve(__dirname, "server/public/dist/src/assets/img/")
+        },
+        {
+          from: path.resolve(__dirname, "client/src/assets/img/3.jpg"),
+          to: path.resolve(__dirname, "server/public/dist/src/assets/img/")
+        },
+        {
+          from: path.resolve(__dirname, "client/src/assets/img/4.jpg"),
+          to: path.resolve(__dirname, "server/public/dist/src/assets/img/")
+        },
+        {
+          from: path.resolve(__dirname, "client/src/assets/img/5.jpg"),
+          to: path.resolve(__dirname, "server/public/dist/src/assets/img/")
+        }
       ]
     }),
     new ESLintPlugin()
