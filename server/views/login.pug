@@ -3,21 +3,18 @@ extends layout
 block content
 
   form(class='loginForm form', method='post')
-    div.formTitle login
-    table
-      tr
-        td
-          //- input.modalInput(type='email', placeholder='e-mail',name='email', required)
-          input.input(type='text', placeholder='email', name='email', required)
-      tr
-        td
-          input.input(type='password', placeholder='password', name='password', required)
-      tr
-        td
-          input.submit(type='submit', value='login')
-      tr
-        td
+    .container
+      h3.form__heading Login
+      div.mb-3.row
+        div.col-md-12
+          input(type='text', placeholder='email', name='email', required).form-control.form__input_1
+      div.mb-3.row
+        div.col-md-12.mb-3
+          input(type='password', placeholder='password', name='password', required).form-control.form__input_2
+        div.col-md-12
+          button(type="submit").btn.btn-primary.mb-3 login
+        div.col-md-12
           span(data-translate='notYetMember') Not yet a member?
-            a(href='/signup', data-translate='signup') signup
+          a(href='/signup', data-translate='signup') signup
 
   script(type="module" src="/dist/login.bundle.js")

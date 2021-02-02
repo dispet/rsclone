@@ -5,6 +5,10 @@ block content
   header.no-select
     .container
       .row
+        div.col-md-12
+          h1.board-heading Trello <span>board</span>
+    .container
+      .row
         div.lang.col-md-3
           label(for="lang", data-translate='language') Language:
           select.select-lang(name="language" id="lang")
@@ -64,11 +68,11 @@ block content
 
   footer.footer
     p
-      span 2021 © rsclone
+      span.footer__copy 2021 © rsclone
       a(href="https://github.com/dispet") dispet
       a(href="https://github.com/AlexeyFL") AlexeyFL
       a(href="https://github.com/dispet") unclekoin
       a(href="https://rs.school/js")
-        img(src="dist/src/assets/img/rs_school_js.svg" width="50" height="50" alt="Rolling Scopes")
+        img.footer__image(src="dist/src/assets/img/rs_school_js.svg" width="50" height="50" alt="Rolling Scopes")
 
   script(type="module" src="/dist/main.bundle.js")

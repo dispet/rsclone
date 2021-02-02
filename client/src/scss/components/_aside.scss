@@ -72,6 +72,9 @@
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s;
+    @media (max-width: 360px) {
+        width: 100%;
+    }
 }
 
 .menubtn:hover {
@@ -83,12 +86,20 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    .list-group-item {
+        @media (max-width: 500px) {
+            padding: 10px 10px 10px 50px;
+        }
+    }
 }
 
 .log {
     display: flex;
     overflow-wrap: break-word;
     width: 360px;
+    @media (max-width: 360px) {
+        width: 100%;
+    }
 }
 
 .icon {
@@ -120,6 +131,7 @@
     width: 30px;
     height: 30px;
     transition: transform 0.3s;
+    animation: rotateNav 3s cubic-bezier(0.17, 0.67, 0.45, 1.4) 0.4s;
     &:hover {
         transform: rotate(90deg);
     }
@@ -127,5 +139,16 @@
         position: absolute;
         top: -55px;
         right: -12px;
+    }
+}
+
+@keyframes rotateNav {
+    0% {
+        opacity: 0;
+        transform: perspective(2000px) rotateY(0deg);
+    }
+    100% {
+        opacity: 1;
+        transform: perspective(2000px) rotateY(368deg);
     }
 }

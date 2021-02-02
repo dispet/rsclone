@@ -44,6 +44,33 @@ header {
     }
 }
 
+.board-heading {
+    text-align: center;
+    font-size: 35px;
+    font-weight: 700;
+    font-family: "Lobster", cursive;
+    font-family: "Lobster Two", cursive;
+    animation: rotateHeader 3s cubic-bezier(0.17, 0.67, 0.45, 1.4);
+    @media (max-width: 770px) {
+        display: none;
+    }
+}
+
+@keyframes rotateHeader {
+    0% {
+        opacity: 0;
+        transform: perspective(2000px) rotateX(0deg) skew(0);
+    }
+    50% {
+        opacity: 0;
+        transform: perspective(2000px) rotateX(0deg) skew(50deg);
+    }
+    100% {
+        opacity: 1;
+        transform: perspective(2000px) rotateX(368deg) skew(0deg);
+    }
+}
+
 .team {
     transition: margin-left 0.5s;
     height: 60px;
@@ -106,7 +133,7 @@ header {
         height: 100%;
         flex-direction: column-reverse;
         justify-content: flex-end;
-        padding: 30px 3px;
+        padding: 10px 3px;
     }
 }
 
@@ -317,7 +344,9 @@ textarea {
     @media (max-width: 770px) {
         width: 100%;
         margin-left: 0;
-        margin-bottom: 30px;
+        margin-bottom: 10px;
+        height: 40px;
+        line-height: 40px;
     }
 }
 
@@ -335,6 +364,11 @@ textarea {
         transition: transform 0.3s;
         &:hover {
             transform: translateY(-2px);
+        }
+    }
+    span.footer__copy {
+        @media (max-width: 520px) {
+            display: none;
         }
     }
 }

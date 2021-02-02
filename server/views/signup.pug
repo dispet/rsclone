@@ -1,23 +1,23 @@
 extends layout
 
 block content
+
   form(class='signupForm form', method='post')
-    div.formTitle signup
-    table
-        tr
-            td
-                input.input(type='email', placeholder='email', name='email', required)
-        tr
-            td
-                input.input(type='password', placeholder='password', name='password', required)
-        tr
-            td
-                input.input(type='text', placeholder='name',name='name', required)
-        tr
-            td
-                input.input(type='text', placeholder='phone', name='phone', required)
-        tr
-            td
-                input.submit(type='submit', value='signup')
+    .container
+      h3.form__heading Signup
+      div.mb-3.row
+        div.col-md-12
+          input(type='text', placeholder='email', name='email', required).form-control.form__input_1
+      div.mb-3.row
+        div.col-md-12.mb-3
+          input(type='password', placeholder='password', name='password', required).form-control.form__input_2
+      div.mb-3.row
+        div.col-md-12.mb-3
+          input(type='text', placeholder='name',name='name', required).form-control
+      div.mb-3.row.form__input_3
+        div.col-md-12.mb-3
+          input(type='text', placeholder='phone', name='phone', required).form-control.form__input_4
+        div.col-md-12
+          button(type="submit").btn.btn-primary.mb-3 signup
 
   script(type="module" src="/dist/signup.bundle.js")

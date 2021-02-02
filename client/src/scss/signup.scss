@@ -1,9 +1,59 @@
-@import 'common/reset','components/form';
+@import "common/reset", "components/form";
 
-.signupForm{
-    width:500px; 
-    height:450px; 
-    margin-left: -250px; 
-    margin-top: -225px;
+.signupForm {
+    padding-top: 20px;
+    width: 500px;
+    transform: translate(-50%, -50%);
+    animation: fadeInForm 1s linear;
+    @media (max-width: 600px) {
+      width: 100%;
+    }
+    .form__heading {
+        font-size: 25px;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+    .form__input_1{
+      animation: fadeLeft .6s cubic-bezier(.17,.67,.45,1.4) .3s;
+    }
+    .form__input_2{
+      animation: fadeRight .6s cubic-bezier(.17,.67,.45,1.4) .5s;
+    }
+    .form__input_3{
+      animation: fadeLeft .6s cubic-bezier(.17,.67,.45,1.4) .7s;
+    }
+    .form__input_4{
+      animation: fadeRight .6s cubic-bezier(.17,.67,.45,1.4) .9s;
+    }
 }
 
+@keyframes fadeInForm {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, 0%);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+@keyframes fadeLeft {
+  0% {
+      opacity: 0;
+      transform: translateX(-100px);
+  }
+  100% {
+      opacity: 1;
+      transform: translateX(0);
+  }
+}
+@keyframes fadeRight {
+  0% {
+      opacity: 0;
+      transform: translateX(100px);
+  }
+  100% {
+      opacity: 1;
+      transform: translateX(0);
+  }
+}
