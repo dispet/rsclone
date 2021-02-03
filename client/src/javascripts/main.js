@@ -57,6 +57,54 @@ const addColumnEvent = () => {
   });
 };
 
+// sounds
+const sounds = () => {
+  let enable = true;
+  function createSoundButton() {
+      const headerContainer = $("header.no-select");
+      const btn = document.createElement("span");
+      btn.className = "sound-btn";
+      btn.innerHTML = '<i class="far fa-bell"></i>';
+      headerContainer.append(btn);
+  }
+  createSoundButton();
+
+  function playAudio(url, isEnable) {
+      const audio = new Audio(url);
+      if (isEnable) {
+          audio.play();
+      }
+  }
+
+  function enableSound() {
+      document.addEventListener("click", (e) => {
+          if (e.target.closest(".sound-btn")) {
+              const btn = e.target.closest(".sound-btn");
+              enable = !enable;
+              if (enable) {
+                  btn.innerHTML = '<i class="far fa-bell"></i>';
+              } else {
+                  btn.innerHTML = '<i class="fas fa-bell-slash"></i>';
+              }
+          }
+      });
+  }
+  enableSound();
+
+  function addSound() {
+      let dataSounds = $All("[data-sound]");
+      document.addEventListener("click", (e) => {
+          if (e.target.closest("[data-sound]")) {
+              dataSounds = $All("[data-sound]");
+              const sound = e.target.closest("[data-sound]").dataset.sound;
+              playAudio(`dist/src/assets/sound/${sound}.mp3`, enable);
+          }
+      });
+  }
+  addSound();
+};
+// sounds
+
 // change background
 const changeMainBackground = () => {
   let mainBackground = "";
@@ -513,6 +561,7 @@ const setEventHandler = () => {
   addNoteBg();
   changeLang();
   changeMainBackground();
+  sounds();
 };
 
 const headerRender = () => {

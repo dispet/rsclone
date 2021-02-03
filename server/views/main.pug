@@ -21,7 +21,7 @@ block content
           div.user-info
             div.user-info-avatar(title="avatar")#avatar
         div.col-md-3.text-right
-          span.openNav &#x2630;
+          span(data-sound="delete").openNav &#x2630;
 
   section.todo#main
     div.columnList
@@ -36,29 +36,29 @@ block content
   aside#mySidenav.sidenav
     div.navHeader.no-select
       div(data-translate='menu') &#x2630 Menu
-      div.closebtn &times
+      div(data-sound="delete").closebtn &times
     div.change-bg.menubtn
       i.fas.fa-cog
-      span.changemainbg( data-translate='changemainbg') Change background
+      span(data-sound="delete").changemainbg( data-translate='changemainbg') Change background
       div.menu
         .menu__content
-          span.close &times
+          span(data-sound="delete").close &times
           .menu__item
-            button(data-action="changecolor", data-translate='changecolor').btn.btn-success.menu__btn Color
-            button(data-action="changephoto", data-translate='changephoto').btn.btn-success.menu__btn Photo
+            button(data-sound="delete",data-action="changecolor", data-translate='changecolor').btn.btn-success.menu__btn Color
+            button(data-sound="delete",data-action="changephoto", data-translate='changephoto').btn.btn-success.menu__btn Photo
         .menu__sub.menu__sub_column(data-type="changecolor")
-          span.close &times
+          span(data-sound="delete").close &times
           .menu__item
             label.menu__label(for="main-background", data-translate='changecolor') Color
             input(type="color", id="main-background" name="main-background",value="#e66465")
         .menu__sub(data-type="changephoto")
-          span.close &times
+          span(data-sound="delete").close &times
           .menu__item.menu__item_wrap#images
-            .sample(style = `background : url(dist/src/assets/img/1.jpg) no-repeat 50% / cover`)
-            .sample(style = `background : url(dist/src/assets/img/2.jpg) no-repeat 50% / cover`)
-            .sample(style = `background : url(dist/src/assets/img/3.jpg) no-repeat 50% / cover`)
-            .sample(style = `background : url(dist/src/assets/img/4.jpg) no-repeat 50% / cover`)
-            .sample(style = `background : url(dist/src/assets/img/5.jpg) no-repeat 50% / cover`)
+            .sample(data-sound="change",style = `background : url(dist/src/assets/img/1.jpg) no-repeat 50% / cover`)
+            .sample(data-sound="change",style = `background : url(dist/src/assets/img/2.jpg) no-repeat 50% / cover`)
+            .sample(data-sound="change",style = `background : url(dist/src/assets/img/3.jpg) no-repeat 50% / cover`)
+            .sample(data-sound="change",style = `background : url(dist/src/assets/img/4.jpg) no-repeat 50% / cover`)
+            .sample(data-sound="change",style = `background : url(dist/src/assets/img/5.jpg) no-repeat 50% / cover`)
     div.signupbtn.menubtn
       i.fas.fa-user-plus
       span(title="Invite to board", data-translate='addMember') Add Member

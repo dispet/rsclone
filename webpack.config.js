@@ -54,6 +54,10 @@ module.exports = {
           from: path.resolve(__dirname, "client/src/assets/img/"),
           to: path.resolve(__dirname, "server/public/dist/src/assets/img/")
         },
+        {
+          from: path.resolve(__dirname, "client/src/assets/sound"),
+          to: path.resolve(__dirname, "server/public/dist/src/assets/sound")
+        }
       ]
     }),
     new ESLintPlugin()
