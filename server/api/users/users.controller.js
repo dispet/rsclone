@@ -17,7 +17,7 @@ class UsersController {
     this.findAllAddedByUsers = async (req, res, next) => {
       try {
         const dataOne = await this.uService.findOne(req.session.userInfo.id);
-        const userId = dataOne[0].addedBy || req.session.userInfo.id;
+        const userId = dataOne.addedBy || req.session.userInfo.id;
         const data = await this.uService.findAllAddedBy(userId);
         const response = resObject(200, true, 'User inquiry success', data);
         res.send(response);
@@ -74,7 +74,7 @@ class UsersController {
           password: req.body.password,
           name: req.body.name,
           phone: req.body.phone,
-          addedBy: req.body.addedBy,
+          addedBy: req.body.addedBy
         }
         const data = await this.uService.create(usersDTO);
         const response = resObject(201, true, 'Successful user addition', data);

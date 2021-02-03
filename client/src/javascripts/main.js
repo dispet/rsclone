@@ -573,7 +573,7 @@ const setEventHandler = () => {
 const headerRender = () => {
   getFetch("/api/users/find")
     .then((json) => {
-      const user = json.data[0];
+      const user = json.data;
       userId = user;
       localStorage.setItem("userId", userId.id);
       const $header = $(".title");
