@@ -13,7 +13,7 @@ class UserModel {
                 if (err) {
                     reject(err);
                 }
-                resolve(rows[0]);
+                resolve(rows);
             })
         })
     }

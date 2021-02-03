@@ -56,10 +56,17 @@ const addColumnEvent = () => {
     $columnModal.classList.toggle("hidden");
   });
 };
-
+let sound = 'add';
+let enable = true;
+function playAudio(url, isEnable) {
+  const audio = new Audio(url);
+  if (isEnable) {
+    audio.play();
+  }
+}
 // sounds
 const sounds = () => {
-  let enable = true;
+
   function createSoundButton() {
       const headerContainer = $("header.no-select");
       const btn = document.createElement("span");
@@ -69,16 +76,10 @@ const sounds = () => {
   }
   createSoundButton();
 
-  function playAudio(url, isEnable) {
-      const audio = new Audio(url);
-      if (isEnable) {
-          audio.play();
-      }
-  }
-
   function enableSound() {
       document.addEventListener("click", (e) => {
           if (e.target.closest(".sound-btn")) {
+            playAudio(`dist/src/assets/sound/${sound}.mp3`, enable);
               const btn = e.target.closest(".sound-btn");
               enable = !enable;
               if (enable) {
@@ -96,8 +97,8 @@ const sounds = () => {
       document.addEventListener("click", (e) => {
           if (e.target.closest("[data-sound]")) {
               dataSounds = $All("[data-sound]");
-              const sound = e.target.closest("[data-sound]").dataset.sound;
-              playAudio(`dist/src/assets/sound/${sound}.mp3`, enable);
+              sound = e.target.closest("[data-sound]").dataset.sound || 'add';
+            const audio = document.querySelector(".audio");
           }
       });
   }
@@ -113,9 +114,11 @@ const changeMainBackground = () => {
     document.addEventListener("click", (e) => {
       const parent = document.querySelector(".menu");
       if (e.target.closest(".change-bg")) {
+        playAudio(`dist/src/assets/sound/${sound}.mp3`, enable);
         parent.querySelector(".menu__content").classList.toggle("active");
       }
       if (e.target.classList.contains("menu__btn")) {
+        playAudio(`dist/src/assets/sound/${sound}.mp3`, enable);
         const target = e.target;
         const menus = parent.querySelectorAll(".menu__sub");
         menus.forEach((item) => {
@@ -142,6 +145,7 @@ const changeMainBackground = () => {
     document.addEventListener("click", (e) => {
       const inputColor = document.getElementById("main-background");
       if (e.target === inputColor) {
+        playAudio(`dist/src/assets/sound/${sound}.mp3`, enable);
         const boardBackground = document.getElementById("main");
         inputColor.addEventListener("blur", function () {
           boardBackground.style.background = this.value;
@@ -157,6 +161,7 @@ const changeMainBackground = () => {
   function changeImage() {
     document.addEventListener("click", (e) => {
       if (e.target.classList.contains("sample")) {
+        playAudio(`dist/src/assets/sound/${sound}.mp3`, enable);
         const boardBackground = document.getElementById("main");
         const currentBackground = e.target.style.background;
         boardBackground.style.background = currentBackground;
@@ -280,7 +285,6 @@ const addLabel = () => {
   function addActiveLabel() {
     document.addEventListener("click", (e) => {
       if (e.target.classList.contains("labels__menu-close") && labelOn) {
-
         const parent = e.target.closest(".note");
         const labels = parent.querySelectorAll(".label");
         let local = 0;
@@ -298,6 +302,7 @@ const addLabel = () => {
         });
       }
       if (e.target.classList.contains("label-btn")) {
+        playAudio(`dist/src/assets/sound/${sound}.mp3`, enable);
         labelOn = true;
         const parent = e.target.closest(".note");
         const labels = parent.querySelectorAll(".label");
@@ -513,6 +518,7 @@ const navEvent = () => {
     updateLog();
   });
   $closeBtn.addEventListener("click", () => {
+    playAudio(`dist/src/assets/sound/${sound}.mp3`, enable);
     $mySidenav.style.width = "0";
     $main.style.marginright = "0";
   });
@@ -567,7 +573,7 @@ const setEventHandler = () => {
 const headerRender = () => {
   getFetch("/api/users/find")
     .then((json) => {
-      const user = json.data;
+      const user = json.data[0];
       userId = user;
       localStorage.setItem("userId", userId.id);
       const $header = $(".title");

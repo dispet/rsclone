@@ -94,6 +94,7 @@ class NoteService {
             throw err;
         }
     }
+
     async updateMember(noteDTO) {
         try {
             const origin = await this.noteModel.SELECT(noteDTO.id);
