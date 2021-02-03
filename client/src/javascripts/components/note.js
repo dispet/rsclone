@@ -3,7 +3,7 @@ import {stringToColor, usersAdded} from "../main";
 
 // labels
 import { labelColors } from "./labelColors";
-import LabelButton from "./LabelButton";
+import LabelButton from "./labelButton";
 import Label from "./label";
 
 const labelsArr = [];
