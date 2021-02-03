@@ -37,15 +37,16 @@ export class Note {
   render() {
     const members = this.members ? this.members.split(',') : [];
     const $noteDiv = document.createElement('div');
-    // const $noteLabels = document.createElement('div');
-    // $noteLabels.className = 'note__labels';
-    // $noteLabels.innerHTML = labels.join("");
     const $dataset = document.createAttribute('data-id');
+    const $valuedrop = document.createAttribute('valuedrop');
     const $draggable = document.createAttribute('draggable');
     $noteDiv.className = 'note card';
     $noteDiv.style.backgroundColor = this.background;
+    // $noteDiv.style.zIndex = '0';
+    $valuedrop.value = '0';
     $dataset.value = this.id;
     $draggable.value = 'true';
+    $noteDiv.setAttributeNode($valuedrop);
     $noteDiv.setAttributeNode($dataset);
     $noteDiv.setAttributeNode($draggable);
     $noteDiv.innerHTML = `
@@ -114,7 +115,6 @@ export class Note {
     const btn = btnWrapper.querySelectorAll('.label-btn')
     $noteDiv.querySelector(".noteHeader").style.color = this.color;
     const local = this.label
-      // localStorage[key]
     label.forEach((el,i) =>{
       if (+local & (1 << i)) {
         el.classList.toggle("active");

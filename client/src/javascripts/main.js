@@ -1,19 +1,14 @@
 import { $, $All, getFetch, postFetch, deleteFetch, updateLog, watchBtn, putFetch } from "./utils";
 import { dictionary } from "./utils/dictionary";
-import { images } from "./utils/images";
 import { Column } from "./components/column";
 import { Note } from "./components/note";
 import { Modal } from "./components/modal";
 import { dndColumnHandler, dndNoteHandler } from "./components/dragNdrop";
-import { Log } from "./components/log";
-
-const avatar = require("avatar-image");
 
 const $columnList = $(".columnList");
 let userId;
 export let usersAdded;
 let labelOn = false;
-let avatarOn = false;
 
 export const stringToColor = function stringToColor(str) {
     let hash = 0;
@@ -108,14 +103,14 @@ const changeMainBackground = () => {
     }
     changeColor();
     function changeImage() {
-        const samplesContainer = document.getElementById("images");
+        // const samplesContainer = document.getElementById("images");
 
-        images.forEach((item) => {
-            const sample = document.createElement("div");
-            sample.className = "sample";
-            sample.style.background = `url(dist/src/assets/img/${item}) no-repeat 50% / cover`;
-            samplesContainer.append(sample);
-        });
+        // images.forEach((item) => {
+        //     const sample = document.createElement("div");
+        //     sample.className = "sample";
+        //     sample.style.background = `url(dist/src/assets/img/${item}) no-repeat 50% / cover`;
+        //     samplesContainer.append(sample);
+        // });
         document.addEventListener("click", (e) => {
             if (e.target.classList.contains("sample")) {
                 const boardBackground = document.getElementById("main");
@@ -238,180 +233,119 @@ const changeLang = () => {
 // change lang
 
 // labels
-const addSaveLabels = () => {
-    const notes = document.querySelectorAll(".note");
-    const keys = Object.keys(localStorage);
-    notes.forEach((note) => {
-        const btnWrapper = note.querySelector(".labels__menu-content");
-        const labelsWrapper = note.querySelector(".note__labels");
-        keys.forEach((key) => {
-            if (String(note.dataset.id) === key) {
-                const label = labelsWrapper.querySelectorAll(".label");
-                const btn = btnWrapper.querySelectorAll(".label-btn");
-
-                const local = localStorage[key];
-                label.forEach((el, i) => {
-                    if (+local & (1 << i)) {
-                        el.classList.toggle("active");
-                        btn[i].classList.toggle("active");
-                    }
-                });
-
-                // btnWrapper.innerHTML = JSON.parse(localStorage[key]).buttonsHtml;
-                // labelsWrapper.innerHTML = JSON.parse(localStorage[key]).labelsHtml;
-            }
-        });
-    });
-};
-
 const addLabel = () => {
-    function addToStorage(noteId, labels, buttons, noteBg, noteColor) {
-        localStorage.setItem(
-            noteId,
-            JSON.stringify({
-                id: noteId,
-                labelsHtml: labels,
-                buttonsHtml: buttons,
-                noteBackground: noteBg || "",
-                noteColor: noteColor || ""
-            })
-        );
-    }
+  function addActiveLabel() {
+    document.addEventListener("click", (e) => {
+      if (e.target.classList.contains("labels__menu-close") && labelOn) {
 
-    function saveToDatabase() {
-        document.addEventListener("click", (e) => {
-            if (e.target.classList.contains("button_save")) {
-                const parentNote = e.target.closest(".note");
-                const menu = e.target.closest(".note__menu");
-                const noteId = parentNote.dataset.id;
-                menu.classList.remove("active");
-                const noteBody = parentNote.innerHTML;
-                const $column = e.target.closest(".column");
-                const payload = {
-                    id: noteId,
-                    content: "test 343434"
-                };
-            }
+        const parent = e.target.closest(".note");
+        const labels = parent.querySelectorAll(".label");
+        let local = 0;
+        labels.forEach((label, i) => {
+          local |= Number(label.classList.contains("active")) << i;
         });
-    }
+        const payload = {
+          id: parent.dataset.id,
+          label: local
+        };
 
-    saveToDatabase();
-
-    function addActiveLabel() {
-        document.addEventListener("click", (e) => {
-            if (e.target.classList.contains("label-btn")) {
-                if (labelOn) return;
-                const btnColor = e.target.dataset.hex;
-                const parent = e.target.closest(".note");
-                const btns = parent.querySelectorAll(".label-btn");
-                const labelsWrapper = parent.querySelector(".note__labels");
-                const labelsBtnsWrapper = parent.querySelector("[data-type='label'] .labels__menu-content");
-                const labels = parent.querySelectorAll(".label");
-                let local = 0;
-                // = localStorage[parent.dataset.id];
-                // add active class
-                e.target.classList.toggle("active");
-                labels.forEach((label, i) => {
-                    local |= Number(label.classList.contains("active")) << i;
-                    if (label.dataset.color === e.target.dataset.hex) {
-                        local ^= 1 << i;
-                        label.classList.toggle("active");
-                    }
-                });
-                // localStorage.setItem(parent.dataset.id,local)
-                const payload = {
-                    id: parent.dataset.id,
-                    label: local
-                };
-
-                putFetch("/api/note/label", payload).then((json) => {
-                    updateLog();
-                    labelOn = false;
-                });
-                // addToStorage(parent.dataset.id, labelsWrapper.innerHTML, labelsBtnsWrapper.innerHTML);
-            }
-            if (e.target.classList.contains("member-btn")) {
-                if (avatarOn) return;
-                const parent = e.target.closest(".note");
-                const avatars = parent.querySelectorAll(".user-info-avatar");
-
-                let local = "";
-                let act;
-                // add active class
-                e.target.classList.toggle("active");
-                avatars.forEach((avatar, i) => {
-                    if (avatar.id === e.target.id) {
-                        avatar.classList.toggle("active");
-                        act = avatar.classList.contains("active") ? `add` : "remove";
-                    }
-                    local += avatar.classList.contains("active") ? `${avatar.id},` : "";
-                });
-
-                const payload = {
-                    id: parent.dataset.id,
-                    member: local,
-                    action: act,
-                    memberId: e.target.id
-                };
-
-                putFetch("/api/note/member", payload).then((json) => {
-                    updateLog();
-                    avatarOn = false;
-                });
-            }
+        putFetch("/api/note/label", payload).then((json) => {
+          updateLog();
+          labelOn = false;
         });
-    }
+      }
+      if (e.target.classList.contains("label-btn")) {
+        labelOn = true;
+        const parent = e.target.closest(".note");
+        const labels = parent.querySelectorAll(".label");
+        e.target.classList.toggle("active");
+        labels.forEach((label, i) => {
+          if (label.dataset.color === e.target.dataset.hex) {
+            label.classList.toggle("active");
+          }
+        });
+      }
+      if (e.target.classList.contains("member-btn")) {
+        const parent = e.target.closest(".note");
+        const avatars = parent.querySelectorAll(".user-info-avatar");
 
-    addActiveLabel();
+        let local = "";
+        let act;
+        // add active class
+        e.target.classList.toggle("active");
+        avatars.forEach((avatar, i) => {
+          if (avatar.id === e.target.id) {
+            avatar.classList.toggle("active");
+            act = avatar.classList.contains("active") ? `add` : "remove";
+          }
+          local += avatar.classList.contains("active") ? `${avatar.id},` : "";
+        });
 
-    function addLabelNote() {}
+        const payload = {
+          id: parent.dataset.id,
+          member: local,
+          action: act,
+          memberId: e.target.id
+        };
 
-    addLabelNote();
+        putFetch("/api/note/member", payload).then((json) => {
+          updateLog();
+
+        });
+      }
+    });
+  }
+
+  addActiveLabel();
+
+  function addLabelNote() {
+  }
+
+  addLabelNote();
 };
 
 const noteMenu = () => {
-    function openMenu() {
-        document.addEventListener("click", (e) => {
-            if (e.target.closest(".note__icon")) {
-                const parent = e.target.closest(".note");
-                const menu = parent.querySelector(".note__menu");
-                menu.classList.toggle("active");
-            }
+  function openMenu() {
+    document.addEventListener("click", (e) => {
+      if (e.target.closest(".note__icon")) {
+        const parent = e.target.closest(".note");
+        const menu = parent.querySelector(".note__menu");
+        menu.classList.toggle("active");
+      }
+    });
+  }
+
+  openMenu();
+
+  function openSubMenu() {
+    document.addEventListener("click", (e) => {
+      if (e.target.classList.contains("button")) {
+        const btn = e.target;
+        const parent = e.target.closest(".note");
+        const menus = parent.querySelectorAll(".sub-menu");
+
+        menus.forEach((menu) => {
+          if (menu.dataset.type === btn.dataset.action) {
+            menu.classList.toggle("active");
+          }
         });
-    }
+      }
+    });
+  }
 
-    openMenu();
+  openSubMenu();
 
-    function openSubMenu() {
-        document.addEventListener("click", (e) => {
-            if (e.target.classList.contains("button")) {
-                const btn = e.target;
-                const parent = e.target.closest(".note");
-                const menus = parent.querySelectorAll(".sub-menu");
+  function closeMenu() {
+    document.addEventListener("click", (e) => {
+      if (e.target.classList.contains("close")) {
+        e.target.parentElement.classList.remove("active");
+      }
+    });
+  }
 
-                menus.forEach((menu) => {
-                    if (menu.dataset.type === btn.dataset.action) {
-                        menu.classList.toggle("active");
-                    }
-                });
-            }
-        });
-    }
-
-    openSubMenu();
-
-    function closeMenu() {
-        document.addEventListener("click", (e) => {
-            if (e.target.classList.contains("close")) {
-                e.target.parentElement.classList.remove("active");
-            }
-        });
-    }
-
-    closeMenu();
+  closeMenu();
 };
 // end labels
-
 const dropdownEvent = (node) => {
     $columnList.addEventListener("click", (event) => {
         if (event.target.className === node) {
@@ -429,7 +363,7 @@ const dropdownEvent = (node) => {
 
 const disableBtn = ($noteAddBtn) => {
     $noteAddBtn.style.pointerEvents = "none";
-    // $noteAddBtn.style.backgroundColor = "darkgrey";
+    $noteAddBtn.style.backgroundColor = "darkgrey";
 };
 
 const addNoteEvent = () => {
