@@ -1,14 +1,14 @@
 {
-  "name": "be",
+  "name": "clone-trello",
   "version": "0.0.0",
   "private": true,
   "scripts": {
     "lint": "eslint -c .eslintrc.js ./**/*.js",
     "lint-fix": "npm run lint --fix",
+    "build": "npx webpack",
     "start": "nodemon ./server/bin/www"
   },
   "dependencies": {
-    "avatar-image": "^1.0.1",
     "bcrypt": "^5.0.0",
     "cookie-parser": "~1.4.4",
     "core-js": "^3.6.5",
@@ -19,7 +19,6 @@
     "morgan": "~1.9.1",
     "mysql2": "^2.1.0",
     "nodemon": "^2.0.4",
-    "postgres": "^1.0.2",
     "pug": "2.0.0-beta11",
     "session-file-store": "^1.4.0"
   },

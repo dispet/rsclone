@@ -192,8 +192,6 @@ const addNoteBg = () => {
   document.addEventListener("click", (e) => {
     note = e.target.closest(".note");
     if (note) {
-      // let noteBackground = "";
-      // let noteColor = "";
       const inputBackground = note.querySelector("#note-background");
       const inputColor = note.querySelector("#note-color");
       inputBackground.removeEventListener("blur", background);
