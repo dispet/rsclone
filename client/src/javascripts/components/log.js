@@ -22,9 +22,7 @@ export class Log {
     get logtime() {
         const curr = this.currentTime.getTime();
         const createTime = new Date(this.createdAt).getTime();
-          // + (60000 * 60 * 3) + 10000;
         const elapsedTime = curr - createTime;
-        console.log(curr,createTime,elapsedTime);
         if (elapsedTime < minute)
             return (elapsedTime < 0) ? `${0} seconds ago`: `${Math.floor(elapsedTime/ second)} seconds ago`;
         if (elapsedTime < hour)
