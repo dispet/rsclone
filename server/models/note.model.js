@@ -60,7 +60,6 @@ class NoteModel {
             const params = [noteDTO.columns_id, noteDTO.content, noteDTO.addedBy];
             connection.execute(query, params, (err, rows, fields) => {
                 if (err) {
-                    console.log(err);
                     reject(err);
                 }
                 const insertId = rows.insertId;

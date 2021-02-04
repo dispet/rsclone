@@ -55,18 +55,18 @@ class UsersService {
     try {
       usersDTO.password = await getHash(usersDTO.password);
       const insertId = await this.usersModel.INSERT(usersDTO);
-      if (!insertId.addedBy) {
+      const user = await this.usersModel.SELECT(insertId);
+      if (user.addedBy === 'null') {
         const basicColumns = ["To Do", "Doing", "Done"];
         for (const b of basicColumns) {
           const columnDTO = {
-            user_id: insertId.id,
+            user_id: insertId,
             name: b
           }
-
           await this.columnsModel.INSERT(columnDTO);
         }
       }
-      return insertId.id;
+      return insertId;
     } catch (err) {
       throw err;
     }

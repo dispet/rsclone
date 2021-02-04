@@ -9,7 +9,7 @@ const signupEventHandler = (event) => {
         password: signupForm.password.value,
         name: signupForm.name.value,
         phone: signupForm.phone.value,
-        addedBy: localStorage.getItem('userId') || 0
+        addedBy: localStorage.getItem('userId') || 'null'
     };
     postFetch('/api/users', payload)
     .then((res) => {

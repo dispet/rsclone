@@ -574,8 +574,8 @@ const headerRender = () => {
   getFetch("/api/users/find")
     .then((json) => {
       const user = json.data;
-      userId = user;
-      localStorage.setItem("userId", userId.id);
+      userId = user.id;
+      localStorage.setItem("userId", userId);
       const $header = $(".title");
       const $btn = $(".members");
       $header.innerHTML = `${user.name}'s Board`;

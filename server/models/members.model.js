@@ -51,7 +51,6 @@ class MembersModel {
         if (err) {
           reject(err);
         }
-        // const insertId = rows.insertId;
         resolve(rows);
       })
     })

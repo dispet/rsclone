@@ -32,7 +32,7 @@ class UserModel {
 
     SELECT_BY_ADDEDBY(addedBy) {
         return new Promise((resolve, reject) => {
-            const query = "SELECT * FROM Users where addedBy = ? or id = ?";
+            const query = "SELECT * FROM Users where addedBy= ? or id= ?";
             connection.query(query, [addedBy,addedBy], (err, rows, fields) => {
                 if (err) {
                     reject(err);
@@ -50,8 +50,7 @@ class UserModel {
                 if (err) {
                     reject(err);
                 }
-                // const insertId = rows.insertId;
-              resolve(rows);
+              resolve(rows.insertId);
             })
         })
     }
