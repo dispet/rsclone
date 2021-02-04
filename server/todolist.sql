@@ -5,7 +5,7 @@ CREATE TABLE Users
     password VARCHAR(64)        NOT NULL,
     name     VARCHAR(64) UNIQUE NOT NULL,
     phone    VARCHAR(20)        NOT NULL,
-    addedBy  INT                NULL
+    addedBy  VARCHAR(20)        NULL
 );
 
 CREATE TABLE Columns
