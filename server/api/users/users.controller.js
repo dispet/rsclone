@@ -17,7 +17,7 @@ class UsersController {
     this.findAllAddedByUsers = async (req, res, next) => {
       try {
         const dataOne = await this.uService.findOne(req.session.userInfo.id);
-        const userId = dataOne.addedBy || req.session.userInfo.id;
+        const userId = Number(dataOne.addedBy) || req.session.userInfo.id;
         const data = await this.uService.findAllAddedBy(userId);
         const response = resObject(200, true, 'User inquiry success', data);
         res.send(response);
@@ -54,7 +54,7 @@ class UsersController {
     this.getColumns = async (req, res, next) => {
       try {
         const dataOne = await this.uService.findOne(req.session.userInfo.id);
-        const userId = dataOne.addedBy || req.session.userInfo.id;
+        const userId = Number(dataOne.addedBy)  || req.session.userInfo.id;
         const dataAddedBy = await this.uService.findAllAddedBy(userId);
         const usersId = [];
         dataAddedBy.forEach(el => usersId.push(el.id))

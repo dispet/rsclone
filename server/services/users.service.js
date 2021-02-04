@@ -56,7 +56,7 @@ class UsersService {
       usersDTO.password = await getHash(usersDTO.password);
       const insertId = await this.usersModel.INSERT(usersDTO);
       const user = await this.usersModel.SELECT(insertId);
-      if (user.addedBy === 'null') {
+      if (Number(user.addedBy) === 0) {
         const basicColumns = ["To Do", "Doing", "Done"];
         for (const b of basicColumns) {
           const columnDTO = {

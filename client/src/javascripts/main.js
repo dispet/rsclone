@@ -525,7 +525,7 @@ const navEvent = () => {
 
   $logoutbtn.addEventListener("click", () => {
     getFetch("/api/users/auth/logout").then(() => {
-      localStorage.setItem("userId", null);
+      localStorage.setItem("userId", '0');
       window.location.replace("/");
     });
   });

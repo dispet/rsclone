@@ -10,7 +10,7 @@ class LogController {
         this.getUserLogs = async (req, res, next) => {
             try {
               const dataOne = await this.uService.findOne(req.session.userInfo.id);
-              const userId = dataOne.addedBy || req.session.userInfo.id;
+              const userId = Number(dataOne.addedBy) || req.session.userInfo.id;
               const dataAddedBy = await this.uService.findAllAddedBy(userId);
               const usersId = [];
               dataAddedBy.forEach(el => usersId.push(el.id))
