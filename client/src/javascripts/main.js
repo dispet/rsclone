@@ -584,7 +584,8 @@ const headerRender = () => {
         const elementAvatar = $userInfo.appendChild(document.getElementById("avatar").cloneNode());
         elementAvatar.classList.toggle("active");
         const name = el.name.toUpperCase();
-        const letter = name.substr(0, 2);
+        const nameArr = name.split(' ');
+        const letter = (nameArr.length >1)? `${nameArr[0][0]}${nameArr[1][0]}`: name.substr(0, 2);
         const backgroundColor = stringToColor(name);
 
         elementAvatar.innerHTML = letter;

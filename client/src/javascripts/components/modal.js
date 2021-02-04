@@ -197,7 +197,8 @@ export class Modal {
         $elementAvatar.setAttributeNode($dataset);
         $elementAvatar.setAttributeNode($title);
         const name = content.toUpperCase();
-        const letter = name.substr(0, 2);
+        const nameArr = name.split(' ');
+        const letter = (nameArr.length >1)? `${nameArr[0][0]}${nameArr[1][0]}`: name.substr(0, 2);
         const backgroundColor = stringToColor(name);
         $elementAvatar.innerHTML = letter;
         $elementAvatar.style.backgroundColor = backgroundColor;
