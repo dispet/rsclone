@@ -6,7 +6,8 @@
     "lint": "eslint -c .eslintrc.js ./**/*.js",
     "lint-fix": "npm run lint --fix",
     "build": "npx webpack",
-    "start": "nodemon ./server/bin/www"
+    "test": "nodemon ./server/bin/www",
+    "start": "node ./server/bin/www"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
